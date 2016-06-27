@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">SDLRSX-Example</string>
+    <string name="consent_button">Start Consent</string>
     <string name="yadl_full_button">YADL Full Assessment</string>
     <string name="yadl_spot_button">YADL Spot Assessment</string>
     <string name="medl_full_button">MEDL Full Assessment</string>
     <string name="medl_spot_button">MEDL Spot Assessment</string>
     <string name="pam_button">PAM</string>
+    <string name="date_consented">Date Consented:</string>
 </resources>

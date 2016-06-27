@@ -11,6 +11,7 @@ import java.util.Set;
  */
 public class AppPrefs {
 
+    public static final String HAS_CONSENTED     = "HAS_CONSENTED";
     public static final String YADL_ACTIVITIES      = "YADL_ACTIVITIES";
     public static final String MEDL_ITEMS      = "MEDL_ITEMS";
 
@@ -36,6 +37,16 @@ public class AppPrefs {
             instance = new AppPrefs(context);
         }
         return instance;
+    }
+
+    public boolean hasConsented()
+    {
+        return prefs.getBoolean(HAS_CONSENTED, false);
+    }
+
+    public void setHasConsented(boolean consented)
+    {
+        prefs.edit().putBoolean(HAS_CONSENTED, consented).apply();
     }
 
     public Set<String> getYADLActivities()

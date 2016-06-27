@@ -8,6 +8,55 @@
     tools:context="edu.cornell.tech.foundry.sdlrsx_example.MainActivity"
     >
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="16dp"
+        >
+
+        <android.support.v7.widget.AppCompatButton
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:id="@+id/consent_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="24sp"
+            android:layout_centerInParent="true"
+            android:text="@string/consent_button"
+            android:visibility="visible"
+            />
+
+        <ImageView
+            android:id="@+id/consented_signature"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true" android:layout_alignParentStart="true"
+            android:scaleType="centerInside" tools:src="@mipmap/ic_launcher"/>
+
+        <TextView
+            android:id="@+id/consented_date_lbl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/consented_signature"
+            android:gravity="center"
+            android:minHeight="48dp"
+            android:text="@string/date_consented"/>
+
+        <TextView
+            android:id="@+id/consented_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/consented_signature"
+            android:gravity="center"
+            android:minHeight="48dp"
+            tools:text="Date"/>
+
+    </RelativeLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
