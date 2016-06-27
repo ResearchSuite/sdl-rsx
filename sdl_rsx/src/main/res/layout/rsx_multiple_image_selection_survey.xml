@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/question_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="What activities did you have trouble with today?"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:layout_alignParentStart="false"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true" />
+
+    <TextView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/additional_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Additional Text"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/question_text_view"
+        android:layout_marginTop="10dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit (0)"
+        android:id="@+id/something_selected_button"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:minWidth="180dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nothing To Report"
+        android:id="@+id/nothing_selected_button"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:minWidth="180dp" />
+
+    <FrameLayout
+        android:id="@+id/images_grid_view_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@+id/additional_text_view"
+        android:layout_above="@+id/something_selected_button"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="false"
+        android:layout_alignParentRight="true"
+        android:layout_margin="4dp">
+        <GridView
+            android:layout_width="match_parent"
+            android:id="@+id/images_grid_view"
+            android:layout_height="match_parent"
+            android:numColumns="auto_fit"
+            android:verticalSpacing="10dp"
+            android:horizontalSpacing="10dp"
+            android:stretchMode="columnWidth"
+            android:gravity="center" />
+    </FrameLayout>
+
+
+</RelativeLayout>

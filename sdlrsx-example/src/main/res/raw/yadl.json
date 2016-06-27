@@ -1,0 +1,120 @@
+{
+   "YADL":{
+      "full":{
+         "identifier":"YADL Full Identifier",
+         "prompt":"How hard is this activity for you on a difficult day?",
+         "summary":{
+            "identifier":"YADL Full Summary Identifier",
+            "title":"Thanks",
+            "text":"Thank you for participating in the YADL Full Assessment"
+         },
+         "choices":[
+            {
+               "text":"Easy",
+               "value":"easy",
+               "color":"#69D2E7"
+            },
+            {
+               "text":"Moderate",
+               "value":"moderate",
+               "color":"#E0E4CC"
+            },
+            {
+               "text":"Hard",
+               "value":"hard",
+               "color":"#F38630"
+            }
+         ]
+      },
+      "spot":{
+         "identifier":"YADL Spot Identifier",
+         "prompt":"Which activities did you have trouble with today?",
+         "summary":{
+            "identifier":"YADL Spot Summary Identifier",
+            "title":"Thanks",
+            "text":"Thank you for participating in the YADL Spot Assessment"
+         },
+         "noItemsSummary":{
+            "identifier":"YADL Spot No Activities Summary Identifier",
+            "title":"Thanks",
+            "text":"You have no activities to measure"
+         },
+         "options":{
+            "somethingSelectedButtonColor":"#0080ff",
+            "nothingSelectedButtonColor":"#FCC103",
+            "itemCellSelectedColor":"#7FEE7D",
+            "itemCellSelectedOverlayImageTitle":"rsb_ic_check",
+            "itemCollectionViewBackgroundColor":"#E9E9E9",
+            "itemsPerRow":3,
+            "itemMinSpacing":10.0
+         }
+      },
+      "activities":[
+         {
+            "imageTitle":"bathing",
+            "description":"Bathing",
+            "identifier":"Bathing"
+         },
+         {
+            "imageTitle":"bedtochair",
+            "description":"Bed To Chair",
+            "identifier":"BedToChair"
+         },
+         {
+            "imageTitle":"dressing",
+            "description":"Dressing",
+            "identifier":"Dressing"
+         },
+         {
+            "imageTitle":"eating",
+            "description":"Eating",
+            "identifier":"Eating"
+         },
+         {
+            "imageTitle":"housework",
+            "description":"Housework",
+            "identifier":"Housework"
+         },
+         {
+            "imageTitle":"lifting",
+            "description":"Lift 10-pounds",
+            "identifier":"Lifting"
+         },
+         {
+            "imageTitle":"managingfinances",
+            "description":"Managing Finances",
+            "identifier":"ManagingFinances"
+         },
+         {
+            "imageTitle":"preparingfood",
+            "description":"Meal Prep",
+            "identifier":"PreparingFood"
+         },
+         {
+            "imageTitle":"shopping",
+            "description":"Shopping",
+            "identifier":"Shopping"
+         },
+         {
+            "imageTitle":"shortwalk",
+            "description":"Talking a short walk",
+            "identifier":"ShortWalk"
+         },
+         {
+            "imageTitle":"takingmeds",
+            "description":"Taking Medication",
+            "identifier":"TakingMeds"
+         },
+         {
+            "imageTitle":"toilet",
+            "description":"Using the toilet",
+            "identifier":"Toilet"
+         },
+         {
+            "imageTitle":"walkingupstairs",
+            "description":"Climbing Stairs",
+            "identifier":"WalkingUpStairs"
+         }
+      ]
+   }
+}

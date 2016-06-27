@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="4dp">
+
+        <android.support.percent.PercentRelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true">
+
+            <ImageView
+                android:id="@+id/item_image_view"
+                app:layout_widthPercent="100%"
+                app:layout_aspectRatio="100%"
+                android:layout_centerInParent="true"
+                android:scaleType="centerCrop"/>
+
+            <ImageView
+                android:id="@+id/check_image_view"
+                app:layout_widthPercent="50%"
+                app:layout_aspectRatio="100%"
+                android:layout_centerInParent="true"
+                android:scaleType="fitCenter"/>
+
+        </android.support.percent.PercentRelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/text_container">
+
+            <TextView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/primary_text_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Primary Text"
+                android:gravity="center"
+                android:textSize="20sp" />
+
+            <TextView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/secondary_text_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Secondary Text"
+                android:gravity="center"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

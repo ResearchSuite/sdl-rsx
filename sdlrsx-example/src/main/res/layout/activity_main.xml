@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="edu.cornell.tech.foundry.sdlrsx_example.MainActivity"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        >
+
+        <android.support.v7.widget.AppCompatButton
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:id="@+id/yadl_full_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="24sp"
+            android:layout_centerInParent="true"
+            android:text="@string/yadl_full_button"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        >
+
+        <android.support.v7.widget.AppCompatButton
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:id="@+id/yadl_spot_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="24sp"
+            android:layout_centerInParent="true"
+            android:text="@string/yadl_spot_button"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        >
+
+        <android.support.v7.widget.AppCompatButton
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:id="@+id/medl_full_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="24sp"
+            android:layout_centerInParent="true"
+            android:text="@string/medl_full_button"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        >
+
+        <android.support.v7.widget.AppCompatButton
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:id="@+id/medl_spot_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="24sp"
+            android:layout_centerInParent="true"
+            android:text="@string/medl_spot_button"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        >
+
+        <android.support.v7.widget.AppCompatButton
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:id="@+id/pam_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="24sp"
+            android:layout_centerInParent="true"
+            android:text="@string/pam_button"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>
