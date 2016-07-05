@@ -7,4 +7,16 @@
     <string name="medl_spot_button">MEDL Spot Assessment</string>
     <string name="pam_button">PAM</string>
     <string name="date_consented">Date Consented:</string>
+
+    <string name="yadl_json">json/yadl.json</string>
+    <string name="medl_json">json/medl.json</string>
+
+    <string name="yadl_image_path">images/yadl</string>
+    <string name="yadl_image_ext">jpeg</string>
+    <string name="medl_image_path">images/medl</string>
+    <string name="medl_image_ext">jpg</string>
+    <string name="overlay_image_path">images</string>
+    <string name="overlay_image_ext">png</string>
+
+
 </resources>

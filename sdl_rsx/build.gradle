@@ -1,4 +1,8 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
+
+version = '0.0.1'
 
 android {
     compileSdkVersion 23
@@ -8,7 +12,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 23
         versionCode 1
-        versionName "1.0"
+        versionName version
     }
     buildTypes {
         release {
@@ -18,10 +22,96 @@ android {
     }
 }
 
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+ext {
+    bintrayRepo = 'SDLRSX'
+    bintrayName = 'SDLRSX'
+
+    publishedGroupId = 'edu.cornell.tech.foundry'
+    libraryName = 'sdl_rsx'
+    artifact = 'sdl_rsx'
+
+    libraryDescription = 'Backbone description'
+
+    libraryDescription = 'The Small Data Lab ResearchStack Extensions package is the easiest way to include SDL visual surveys (YADL, MEDL, PAM) into a ResearchStack application.'
+
+    siteUrl = 'https://cornelltech.io'
+    gitUrl = 'https://github.com/cornelltech/sdl-rsx.git'
+
+    libraryVersion = version
+
+    userOrgName = 'edu-cornell-tech-foundry'
+    developerId = properties.getProperty("bintray.user")
+    developerName = properties.getProperty("bintray.developerName")
+    developerEmail = properties.getProperty("bintray.developerEmail")
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'com.android.support:percent:23.4.0'
     compile 'org.researchstack:backbone:1.0.0.rc3'
+}
+
+group = publishedGroupId                               // Maven Group ID for the artifact
+
+if (project.hasProperty("android")) { // Android libraries
+    task sourcesJar(type: Jar) {
+        classifier = 'sources'
+        from android.sourceSets.main.java.srcDirs
+    }
+
+    task javadoc(type: Javadoc) {
+        failOnError false
+        source = android.sourceSets.main.java.srcDirs
+    }
+
+    afterEvaluate {
+        javadoc.classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+        javadoc.classpath += files(android.libraryVariants.collect { variant ->
+            variant.javaCompile.classpath.files
+        })
+    }
+} else { // Java libraries
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+bintray {
+//    user = properties.getProperty("bintray.user")
+//    key = properties.getProperty("bintray.apikey")
+    user = 'jdkizer9'
+    key = '37ff0937d097cd4d7b20015a6d5805abe4d013fb'
+
+
+    configurations = ['archives']
+    pkg {
+        repo = bintrayRepo
+        name = bintrayName
+        userOrg = userOrgName
+        desc = libraryDescription
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        licenses = allLicenses
+        publish = true
+    }
 }

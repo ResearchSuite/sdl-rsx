@@ -1,6 +1,7 @@
 package edu.cornell.tech.foundry.sdl_rsx.ui;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,8 @@ import org.researchstack.backbone.step.Step;
 import org.researchstack.backbone.utils.ResUtils;
 import org.researchstack.backbone.utils.TextUtils;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -80,10 +83,14 @@ public class RSXMultipleImageSelectionSurveyAdapter <T> extends BaseAdapter {
         ImageView checkImageView = (ImageView) missCell.findViewById(R.id.check_image_view);
         LinearLayout textContainer = (LinearLayout) missCell.findViewById(R.id.text_container);
 
-        int itemResId = ResUtils.getDrawableResourceId(missCell.getContext(), imageChoice.getNormalStateImage());
-        if (itemResId != 0) {
-            itemImageView.setImageResource(itemResId);
+        try {
+            InputStream inputStream = missCell.getContext().getAssets().open(imageChoice.getNormalStateImage());
+            Drawable d = Drawable.createFromStream(inputStream, null);
+            itemImageView.setImageDrawable(d);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
         if (this.getSelectedForValue((T) imageChoice.getValue())) {
 
             if(this.getStep().getOptions().getItemCellSelectedColor() != 0) {
@@ -91,11 +98,13 @@ public class RSXMultipleImageSelectionSurveyAdapter <T> extends BaseAdapter {
             }
 
             if (!TextUtils.isEmpty( this.getStep().getOptions().getItemCellSelectedOverlayImageTitle() )) {
-                int checkResId = ResUtils.getDrawableResourceId(missCell.getContext(), this.getStep().getOptions().getItemCellSelectedOverlayImageTitle());
-
-                checkImageView.setVisibility(View.VISIBLE);
-                if (checkResId != 0) {
-                    checkImageView.setImageResource(checkResId);
+                try {
+                    InputStream inputStream = missCell.getContext().getAssets().open(this.getStep().getOptions().getItemCellSelectedOverlayImageTitle());
+                    Drawable d = Drawable.createFromStream(inputStream, null);
+                    checkImageView.setImageDrawable(d);
+                    checkImageView.setVisibility(View.VISIBLE);
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
         }

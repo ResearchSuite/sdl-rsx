@@ -98,16 +98,12 @@ public class MEDLFullAssessmentTask extends RSXMultipleImageSelectionSurveyTask 
     //context contains the resources for the config file as well as images
     public static MEDLFullAssessmentTask create(String identifier, String propertiesFileName, Context context) {
 
-        Resources r = context.getResources();
-
         MEDLFullAssessment assessment = null;
-        //Get Data From Text Resource File Contains Json Data.
-        int resourceID = ResUtils.getRawResourceId(context, propertiesFileName);
-        InputStream inputStream = r.openRawResource(resourceID);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
         int ctr;
         try {
+            InputStream inputStream = context.getAssets().open(propertiesFileName);
             ctr = inputStream.read();
             while (ctr != -1) {
                 byteArrayOutputStream.write(ctr);
@@ -126,7 +122,7 @@ public class MEDLFullAssessmentTask extends RSXMultipleImageSelectionSurveyTask 
             JSONObject assessmentJSON = typeJSON.getJSONObject("full");
             JSONArray copingMechanismsJSON = typeJSON.getJSONArray("medications");
 
-            assessment = new MEDLFullAssessment(assessmentJSON, copingMechanismsJSON);
+            assessment = new MEDLFullAssessment(assessmentJSON, copingMechanismsJSON, context);
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,5 +1,7 @@
 package edu.cornell.tech.foundry.sdl_rsx.model;
 
+import android.content.Context;
+
 import org.json.JSONObject;
 
 /**
@@ -8,7 +10,7 @@ import org.json.JSONObject;
 abstract public class RSXItem {
 
     private String identifier;
-    public RSXItem(JSONObject json) {
+    public RSXItem(JSONObject json, Context context) {
         try {
             this.identifier = json.getString("identifier");
         } catch (Exception e) {

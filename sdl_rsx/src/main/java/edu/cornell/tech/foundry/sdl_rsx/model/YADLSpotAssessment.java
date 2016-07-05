@@ -1,5 +1,6 @@
 package edu.cornell.tech.foundry.sdl_rsx.model;
 
+import android.content.Context;
 import android.graphics.Color;
 
 import org.json.JSONArray;
@@ -17,13 +18,13 @@ public class YADLSpotAssessment extends RSXAssessment {
 
     private RSXMultipleImageSelectionSurveyOptions options;
 
-    public YADLSpotAssessment(JSONObject assessmentJSON, JSONArray itemsJSON) {
+    public YADLSpotAssessment(JSONObject assessmentJSON, JSONArray itemsJSON, Context context) {
 
-        super(assessmentJSON, itemsJSON);
+        super(assessmentJSON, itemsJSON, context);
 
         if (assessmentJSON.has("options")) {
             try {
-                this.options = new RSXMultipleImageSelectionSurveyOptions(assessmentJSON.getJSONObject("options"));
+                this.options = new RSXMultipleImageSelectionSurveyOptions(assessmentJSON.getJSONObject("options"), context);
             } catch (Exception e) {
                 e.printStackTrace();
             }

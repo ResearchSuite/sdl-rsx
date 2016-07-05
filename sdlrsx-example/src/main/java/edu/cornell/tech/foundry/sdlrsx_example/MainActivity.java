@@ -362,7 +362,7 @@ public class MainActivity extends PinCodeActivity {
     {
         Log.i(LOG_TAG, "Launching YADL Full Assessment");
 
-        OrderedTask task = YADLFullAssessmentTask.create(YADL_FULL_ASSESSMENT, "yadl", this);
+        OrderedTask task = YADLFullAssessmentTask.create(YADL_FULL_ASSESSMENT, getResources().getString(R.string.yadl_json), this);
 
         // Create an activity using the task and set a delegate.
         Intent intent = ViewTaskActivity.newIntent(this, task);
@@ -378,7 +378,7 @@ public class MainActivity extends PinCodeActivity {
 
         Set<String> selectedActivies = prefs.getYADLActivities();
 
-        OrderedTask task = YADLSpotAssessmentTask.create(YADL_SPOT_ASSESSMENT, "yadl", this, selectedActivies);
+        OrderedTask task = YADLSpotAssessmentTask.create(YADL_SPOT_ASSESSMENT, getResources().getString(R.string.yadl_json), this, selectedActivies);
 
         // Create an activity using the task and set a delegate.
         Intent intent = ViewTaskActivity.newIntent(this, task);
@@ -389,7 +389,7 @@ public class MainActivity extends PinCodeActivity {
     private void launchMEDLFull()
     {
         Log.i(LOG_TAG, "Launching MEDL Full Assessment");
-        OrderedTask task = MEDLFullAssessmentTask.create(MEDL_FULL_ASSESSMENT, "medl", this);
+        OrderedTask task = MEDLFullAssessmentTask.create(MEDL_FULL_ASSESSMENT, getResources().getString(R.string.medl_json), this);
 
         // Create an activity using the task and set a delegate.
         Intent intent = ViewTaskActivity.newIntent(this, task);
@@ -404,7 +404,7 @@ public class MainActivity extends PinCodeActivity {
 
         Set<String> selectedItems = prefs.getMEDLItems();
 
-        OrderedTask task = MEDLSpotAssessmentTask.create(MEDL_SPOT_ASSESSMENT, "medl", this, selectedItems);
+        OrderedTask task = MEDLSpotAssessmentTask.create(MEDL_SPOT_ASSESSMENT, getResources().getString(R.string.medl_json), this, selectedItems);
 
         // Create an activity using the task and set a delegate.
         Intent intent = ViewTaskActivity.newIntent(this, task);
@@ -416,7 +416,7 @@ public class MainActivity extends PinCodeActivity {
     {
         Log.i(LOG_TAG, "Launching PAM");
 
-        OrderedTask task = PAMTask.create(PAM_ASSESSMENT, "pam", this);
+        OrderedTask task = PAMTask.create(PAM_ASSESSMENT, this);
 
         // Create an activity using the task and set a delegate.
         Intent intent = ViewTaskActivity.newIntent(this, task);

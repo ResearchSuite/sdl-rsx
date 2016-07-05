@@ -1,5 +1,7 @@
 package edu.cornell.tech.foundry.sdl_rsx.model;
 
+import android.content.Context;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -10,13 +12,13 @@ public class MEDLFullAssessment extends RSXAssessment {
 
     private RSXMultipleImageSelectionSurveyOptions options;
 
-    public MEDLFullAssessment(JSONObject assessmentJSON, JSONArray itemsJSON) {
+    public MEDLFullAssessment(JSONObject assessmentJSON, JSONArray itemsJSON, Context context) {
 
-        super(assessmentJSON, itemsJSON);
+        super(assessmentJSON, itemsJSON, context);
 
         if (assessmentJSON.has("options")) {
             try {
-                this.options = new RSXMultipleImageSelectionSurveyOptions(assessmentJSON.getJSONObject("options"));
+                this.options = new RSXMultipleImageSelectionSurveyOptions(assessmentJSON.getJSONObject("options"), context);
             } catch (Exception e) {
                 e.printStackTrace();
             }

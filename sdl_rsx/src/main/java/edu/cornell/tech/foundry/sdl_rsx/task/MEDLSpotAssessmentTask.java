@@ -85,16 +85,12 @@ public class MEDLSpotAssessmentTask extends RSXMultipleImageSelectionSurveyTask 
     //context contains the resources for the config file as well as images
     public static MEDLSpotAssessmentTask create(String identifier, String propertiesFileName, Context context, Set<String> itemIdentifiers) {
 
-        Resources r = context.getResources();
-
         MEDLSpotAssessment assessment = null;
-        //Get Data From Text Resource File Contains Json Data.
-        int resourceID = ResUtils.getRawResourceId(context, propertiesFileName);
-        InputStream inputStream = r.openRawResource(resourceID);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
         int ctr;
         try {
+            InputStream inputStream = context.getAssets().open(propertiesFileName);
             ctr = inputStream.read();
             while (ctr != -1) {
                 byteArrayOutputStream.write(ctr);
@@ -113,7 +109,7 @@ public class MEDLSpotAssessmentTask extends RSXMultipleImageSelectionSurveyTask 
             JSONObject assessmentJSON = typeJSON.getJSONObject("spot");
             JSONArray itemsJSON = typeJSON.getJSONArray("medications");
 
-            assessment = new MEDLSpotAssessment(assessmentJSON, itemsJSON);
+            assessment = new MEDLSpotAssessment(assessmentJSON, itemsJSON, context);
 
         } catch (Exception e) {
             e.printStackTrace();

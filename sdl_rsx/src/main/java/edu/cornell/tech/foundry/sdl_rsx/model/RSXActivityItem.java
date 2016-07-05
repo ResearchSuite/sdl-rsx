@@ -1,6 +1,9 @@
 package edu.cornell.tech.foundry.sdl_rsx.model;
 
+import android.content.Context;
+
 import org.json.JSONObject;
+import org.researchstack.backbone.utils.TextUtils;
 
 import edu.cornell.tech.foundry.sdl_rsx.choice.RSXImageChoice;
 
@@ -12,12 +15,25 @@ public class RSXActivityItem extends RSXImageItem {
     private String activityDescription;
     private String imageTitle;
 
-    public RSXActivityItem(JSONObject json) {
-        super(json);
+    public RSXActivityItem(JSONObject json, Context context) {
+        super(json, context);
 
         try {
             this.activityDescription = json.getString("description");
-            this.imageTitle = json.getString("imageTitle");
+            StringBuilder imageTitleStringBuilder = new StringBuilder();
+            int imagePathResId = context.getResources().getIdentifier("yadl_image_path", "string", context.getPackageName());
+            if (imagePathResId != 0 && !TextUtils.isEmpty(context.getResources().getString(imagePathResId))) {
+                imageTitleStringBuilder.append(context.getResources().getString(imagePathResId));
+                imageTitleStringBuilder.append("/");
+            }
+            imageTitleStringBuilder.append(json.getString("imageTitle"));
+            int imageExtResId = context.getResources().getIdentifier("yadl_image_ext", "string", context.getPackageName());
+            if (imageExtResId != 0 && !TextUtils.isEmpty(context.getResources().getString(imageExtResId))) {
+                imageTitleStringBuilder.append(".");
+                imageTitleStringBuilder.append(context.getResources().getString(imageExtResId));
+            }
+            this.imageTitle = imageTitleStringBuilder.toString();
+
         } catch (Exception e) {
             e.printStackTrace();
         }

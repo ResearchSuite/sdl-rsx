@@ -1,6 +1,7 @@
 package edu.cornell.tech.foundry.sdl_rsx.task;
 
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.content.res.Resources;
 
 import org.json.JSONArray;
@@ -24,6 +25,7 @@ import edu.cornell.tech.foundry.sdl_rsx.model.RSXAssessment;
 import edu.cornell.tech.foundry.sdl_rsx.model.RSXMultipleImageSelectionSurveyOptions;
 import edu.cornell.tech.foundry.sdl_rsx.model.RSXSummary;
 import edu.cornell.tech.foundry.sdl_rsx.step.PAMStep;
+import edu.cornell.tech.foundry.sdl_rsx.R;
 
 /**
  * Created by jk on 6/18/16.
@@ -61,8 +63,8 @@ public class PAMTask extends RSXMultipleImageSelectionSurveyTask {
             List<RSXImageChoice> choices = new ArrayList();
 
             for(int i=0; i<assessment.getItems().size(); i++) {
-                RSXAffectItem activity = (RSXAffectItem) assessment.getItems().get(i);
-                choices.add(activity.getImageChoice());
+                RSXAffectItem affect = (RSXAffectItem) assessment.getItems().get(i);
+                choices.add(affect.getImageChoice());
             }
 
             AnswerFormat answerFormat = new RSXImageChoiceAnswerFormat(AnswerFormat.ChoiceAnswerStyle.MultipleChoice, choices);
@@ -88,16 +90,13 @@ public class PAMTask extends RSXMultipleImageSelectionSurveyTask {
     //context contains the resources for the config file as well as images
     public static PAMTask create(String identifier, String propertiesFileName, Context context) {
 
-        Resources r = context.getResources();
-
         RSXAssessment assessment = null;
-        //Get Data From Text Resource File Contains Json Data.
-        int resourceID = ResUtils.getRawResourceId(context, propertiesFileName);
-        InputStream inputStream = r.openRawResource(resourceID);
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-
         int ctr;
+
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         try {
+            InputStream inputStream = context.getAssets().open(propertiesFileName);
+
             ctr = inputStream.read();
             while (ctr != -1) {
                 byteArrayOutputStream.write(ctr);
@@ -115,7 +114,7 @@ public class PAMTask extends RSXMultipleImageSelectionSurveyTask {
             JSONObject assessmentJSON = completeJSON.getJSONObject("PAM");
             JSONArray affectsJSON = assessmentJSON.getJSONArray("affects");
 
-            assessment = new RSXAssessment(assessmentJSON, affectsJSON) {
+            assessment = new RSXAssessment(assessmentJSON, affectsJSON, context) {
                 @Override
                 public Class<?> getItemClass() {
                     return RSXAffectItem.class;
@@ -129,6 +128,11 @@ public class PAMTask extends RSXMultipleImageSelectionSurveyTask {
         return PAMTask.create(identifier, assessment, context);
 
     }
+
+    public static PAMTask create(String identifier, Context context) {
+        return PAMTask.create(identifier, context.getResources().getString(R.string.pam_json), context);
+    }
+
 
 
 }

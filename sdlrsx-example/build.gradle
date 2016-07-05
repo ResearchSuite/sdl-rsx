@@ -26,4 +26,5 @@ dependencies {
     compile 'org.researchstack:backbone:1.0.0.rc3'
     compile 'org.researchstack:backbone:1.0.0.rc3'
     compile project(':sdl_rsx')
+//    compile 'edu.cornell.tech.foundry:sdl_rsx:0.0.1'
 }

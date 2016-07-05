@@ -85,17 +85,12 @@ public class YADLFullAssessmentTask extends RSXSingleImageClassificationSurveyTa
     //context contains the resources for the config file as well as images
     public static YADLFullAssessmentTask create(String identifier,  String propertiesFileName, Context context) {
 
-        Resources r = context.getResources();
-
-//        List<Step> steps = new ArrayList<>();
         YADLFullAssessment assessment = null;
-        //Get Data From Text Resource File Contains Json Data.
-        int resourceID = ResUtils.getRawResourceId(context, propertiesFileName);
-        InputStream inputStream = r.openRawResource(resourceID);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
         int ctr;
         try {
+            InputStream inputStream = context.getAssets().open(propertiesFileName);
             ctr = inputStream.read();
             while (ctr != -1) {
                 byteArrayOutputStream.write(ctr);
@@ -114,7 +109,7 @@ public class YADLFullAssessmentTask extends RSXSingleImageClassificationSurveyTa
             JSONObject assessmentJSON = typeJSON.getJSONObject("full");
             JSONArray activitiesJSON = typeJSON.getJSONArray("activities");
 
-            assessment = new YADLFullAssessment(assessmentJSON, activitiesJSON);
+            assessment = new YADLFullAssessment(assessmentJSON, activitiesJSON, context);
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -83,16 +83,12 @@ public class YADLSpotAssessmentTask extends RSXMultipleImageSelectionSurveyTask 
     //context contains the resources for the config file as well as images
     public static YADLSpotAssessmentTask create(String identifier,  String propertiesFileName, Context context, Set<String> activityIdentifiers) {
 
-        Resources r = context.getResources();
-
         YADLSpotAssessment assessment = null;
-        //Get Data From Text Resource File Contains Json Data.
-        int resourceID = ResUtils.getRawResourceId(context, propertiesFileName);
-        InputStream inputStream = r.openRawResource(resourceID);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
         int ctr;
         try {
+            InputStream inputStream = context.getAssets().open(propertiesFileName);
             ctr = inputStream.read();
             while (ctr != -1) {
                 byteArrayOutputStream.write(ctr);
@@ -111,7 +107,7 @@ public class YADLSpotAssessmentTask extends RSXMultipleImageSelectionSurveyTask 
             JSONObject assessmentJSON = typeJSON.getJSONObject("spot");
             JSONArray activitiesJSON = typeJSON.getJSONArray("activities");
 
-            assessment = new YADLSpotAssessment(assessmentJSON, activitiesJSON);
+            assessment = new YADLSpotAssessment(assessmentJSON, activitiesJSON, context);
 
         } catch (Exception e) {
             e.printStackTrace();

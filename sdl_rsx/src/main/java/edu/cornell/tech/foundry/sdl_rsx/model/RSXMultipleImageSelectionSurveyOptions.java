@@ -1,8 +1,10 @@
 package edu.cornell.tech.foundry.sdl_rsx.model;
 
+import android.content.Context;
 import android.graphics.Color;
 
 import org.json.JSONObject;
+import org.researchstack.backbone.utils.TextUtils;
 
 import java.io.Serializable;
 
@@ -22,7 +24,7 @@ public class RSXMultipleImageSelectionSurveyOptions implements Serializable {
 
 
     public RSXMultipleImageSelectionSurveyOptions() {}
-    public RSXMultipleImageSelectionSurveyOptions(JSONObject json) {
+    public RSXMultipleImageSelectionSurveyOptions(JSONObject json, Context context) {
         try {
             if (json.has("somethingSelectedButtonColor")) {
                 this.somethingSelectedButtonColor = Color.parseColor(json.getString("somethingSelectedButtonColor"));
@@ -34,7 +36,19 @@ public class RSXMultipleImageSelectionSurveyOptions implements Serializable {
                 this.itemCellSelectedColor = Color.parseColor(json.getString("itemCellSelectedColor"));
             }
             if (json.has("itemCellSelectedOverlayImageTitle")) {
-                this.itemCellSelectedOverlayImageTitle = json.getString("itemCellSelectedOverlayImageTitle");
+                StringBuilder imageTitleStringBuilder = new StringBuilder();
+                int imagePathResId = context.getResources().getIdentifier("overlay_image_path", "string", context.getPackageName());
+                if (imagePathResId != 0 && !TextUtils.isEmpty(context.getResources().getString(imagePathResId))) {
+                    imageTitleStringBuilder.append(context.getResources().getString(imagePathResId));
+                    imageTitleStringBuilder.append("/");
+                }
+                imageTitleStringBuilder.append(json.getString("itemCellSelectedOverlayImageTitle"));
+                int imageExtResId = context.getResources().getIdentifier("overlay_image_ext", "string", context.getPackageName());
+                if (imageExtResId != 0 && !TextUtils.isEmpty(context.getResources().getString(imageExtResId))) {
+                    imageTitleStringBuilder.append(".");
+                    imageTitleStringBuilder.append(context.getResources().getString(imageExtResId));
+                }
+                this.itemCellSelectedOverlayImageTitle  = imageTitleStringBuilder.toString();
             }
             if (json.has("itemCellTextBackgroundColor")) {
                 this.itemCellTextBackgroundColor = Color.parseColor(json.getString("itemCellTextBackgroundColor"));

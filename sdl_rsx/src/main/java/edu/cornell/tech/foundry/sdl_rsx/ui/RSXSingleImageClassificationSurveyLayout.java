@@ -6,6 +6,7 @@ import edu.cornell.tech.foundry.sdl_rsx.R;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
@@ -31,6 +32,9 @@ import org.researchstack.backbone.step.QuestionStep;
 import org.researchstack.backbone.step.Step;
 import org.researchstack.backbone.ui.callbacks.StepCallbacks;
 import org.researchstack.backbone.utils.ThemeUtils;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Created by jk on 5/26/16.
@@ -147,9 +151,12 @@ public class RSXSingleImageClassificationSurveyLayout extends FrameLayout implem
             }
 
             if (step.getImage() != null) {
-                int resId = ResUtils.getDrawableResourceId(getContext(), step.getImage());
-                if (resId != 0) {
-                    imageView.setImageResource(resId);
+                try {
+                    InputStream inputStream = getContext().getAssets().open(step.getImage());
+                    Drawable d = Drawable.createFromStream(inputStream, null);
+                    imageView.setImageDrawable(d);
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
 

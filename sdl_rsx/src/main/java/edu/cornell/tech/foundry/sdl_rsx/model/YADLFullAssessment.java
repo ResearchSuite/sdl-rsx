@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Context;
 import android.graphics.Color;
 
 import edu.cornell.tech.foundry.sdl_rsx.choice.RSXTextChoiceWithColor;
@@ -17,9 +18,9 @@ public class YADLFullAssessment extends RSXAssessment {
 
     private List<RSXTextChoiceWithColor> choices;
 
-    public YADLFullAssessment(JSONObject assessmentJSON, JSONArray itemsJSON) {
+    public YADLFullAssessment(JSONObject assessmentJSON, JSONArray itemsJSON, Context context) {
 
-        super(assessmentJSON, itemsJSON);
+        super(assessmentJSON, itemsJSON, context);
 
         this.choices = new ArrayList<RSXTextChoiceWithColor>();
 

@@ -1,5 +1,7 @@
 package edu.cornell.tech.foundry.sdl_rsx.model;
 
+import android.content.Context;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.researchstack.backbone.result.StepResult;
@@ -24,7 +26,7 @@ abstract public class RSXAssessment {
     private RSXSummary noItemsSummary;
     private List<RSXItem> items;
 
-    public RSXAssessment(JSONObject assessmentJSON, JSONArray itemsJSON) {
+    public RSXAssessment(JSONObject assessmentJSON, JSONArray itemsJSON, Context context) {
         try {
             this.identifier = assessmentJSON.getString("identifier");
             this.prompt = assessmentJSON.getString("prompt");
@@ -36,10 +38,10 @@ abstract public class RSXAssessment {
             this.items = new ArrayList<>();
 
             Class cls = this.getItemClass();
-            Constructor constructor = cls.getConstructor(JSONObject.class);
+            Constructor constructor = cls.getConstructor(JSONObject.class, Context.class);
 
             for (int i = 0; i < itemsJSON.length(); i++) {
-                RSXItem item = (RSXItem) constructor.newInstance(itemsJSON.getJSONObject(i));
+                RSXItem item = (RSXItem) constructor.newInstance(itemsJSON.getJSONObject(i), context);
                 this.items.add(item);
             }
 
