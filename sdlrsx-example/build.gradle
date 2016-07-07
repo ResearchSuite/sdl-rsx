@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    buildToolsVersion "23.0.2"
 
     defaultConfig {
         applicationId "edu.cornell.tech.foundry.sdlrsx_example"
@@ -22,9 +22,6 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.4.0'
-    compile 'org.researchstack:backbone:1.0.0.rc3'
     compile 'org.researchstack:backbone:1.0.0.rc3'
     compile project(':sdl_rsx')
-//    compile 'edu.cornell.tech.foundry:sdl_rsx:0.0.1'
 }
