@@ -9,6 +9,7 @@
       },
       "affects":[
          {
+           "identifier": "1",
             "imageTitles":[
                "1_1",
                "1_2",
@@ -23,6 +24,7 @@
             }
          },
          {
+           "identifier": "2",
             "imageTitles":[
                "2_1",
                "2_2",
@@ -37,6 +39,7 @@
             }
          },
          {
+           "identifier": "3",
             "imageTitles":[
                "3_1",
                "3_2",
@@ -51,6 +54,7 @@
             }
          },
          {
+           "identifier": "4",
             "imageTitles":[
                "4_1",
                "4_2",
@@ -65,6 +69,7 @@
             }
          },
          {
+           "identifier": "5",
             "imageTitles":[
                "5_1",
                "5_2",
@@ -79,6 +84,7 @@
             }
          },
          {
+           "identifier": "6",
             "imageTitles":[
                "6_1",
                "6_2",
@@ -93,6 +99,7 @@
             }
          },
          {
+           "identifier": "7",
             "imageTitles":[
                "7_1",
                "7_2",
@@ -107,6 +114,7 @@
             }
          },
          {
+           "identifier": "8",
             "imageTitles":[
                "8_1",
                "8_2",
@@ -121,6 +129,7 @@
             }
          },
          {
+           "identifier": "9",
             "imageTitles":[
                "9_1",
                "9_2",
@@ -135,6 +144,7 @@
             }
          },
          {
+           "identifier": "10",
             "imageTitles":[
                "10_1",
                "10_2",
@@ -149,6 +159,7 @@
             }
          },
          {
+           "identifier": "11",
             "imageTitles":[
                "11_1",
                "11_2",
@@ -163,6 +174,7 @@
             }
          },
          {
+           "identifier": "12",
             "imageTitles":[
                "12_1",
                "12_2",
@@ -177,6 +189,7 @@
             }
          },
          {
+           "identifier": "13",
             "imageTitles":[
                "13_1",
                "13_2",
@@ -191,6 +204,7 @@
             }
          },
          {
+           "identifier": "14",
             "imageTitles":[
                "14_1",
                "14_2",
@@ -205,6 +219,7 @@
             }
          },
          {
+           "identifier": "15",
             "imageTitles":[
                "15_1",
                "15_2",
@@ -219,6 +234,7 @@
             }
          },
          {
+           "identifier": "16",
             "imageTitles":[
                "16_1",
                "16_2",
