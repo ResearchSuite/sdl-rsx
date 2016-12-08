@@ -483,13 +483,17 @@ public class MainActivity extends PinCodeActivity {
         Choice choice1 = new Choice("choice1", "choice1");
         Choice choice2 = new Choice("choice2", "choice2");
 
-        AnswerFormat answerFormat = new ChoiceAnswerFormat(AnswerFormat.ChoiceAnswerStyle.MultipleChoice, choice1, choice2);
+        AnswerFormat answerFormat = new ChoiceAnswerFormat(
+                AnswerFormat.ChoiceAnswerStyle.MultipleChoice,
+                new Choice("Eating\nunhealthy\nfood", "choice1"),
+                new Choice("Hair pulling /\nskin picking", "choice2"));
 
         RSXMultipleImageSelectionSurveyOptions options = new RSXMultipleImageSelectionSurveyOptions();
-        options.setItemMinSpacing(12);
+        options.setItemMinSpacing(32 * 2);
         options.setItemsPerRow(2);
         options.setSomethingSelectedButtonColor(ThemeUtils.getAccentColor(this));
         options.setNothingSelectedButtonColor(ThemeUtils.getAccentColor(this));
+        options.setItemCellSelectedColor(ThemeUtils.getAccentColor(this));
 
         CTFTextVSRAssessmentStep step = new CTFTextVSRAssessmentStep(PAM_MULTIPLE_ASSESSMENT, title, answerFormat, options);
 //        PAMMultipleSelectionStep step = PAMMultipleSelectionStep.create(PAM_MULTIPLE_ASSESSMENT, this);

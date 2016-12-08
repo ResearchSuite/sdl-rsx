@@ -114,8 +114,7 @@ public class CTFTextVSRAssessmentAdaptor<T> extends RSXSurveyAdaptor {
             }
         }
         else {
-            textVSRCell.setBackgroundColor(textVSRCell.getResources().getColor(android.R.color.holo_green_dark));
-//            textVSRCell.setBackgroundColor(textVSRCell.getResources().getColor(android.R.color.transparent));
+            textVSRCell.setBackgroundColor(textVSRCell.getResources().getColor(android.R.color.transparent));
             checkImageView.setVisibility(View.INVISIBLE);
         }
 

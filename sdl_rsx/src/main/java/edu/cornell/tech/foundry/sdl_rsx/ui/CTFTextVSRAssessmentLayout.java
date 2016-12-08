@@ -5,6 +5,8 @@ import android.util.AttributeSet;
 
 import java.util.Set;
 
+import edu.cornell.tech.foundry.sdl_rsx.step.CTFTextVSRAssessmentStep;
+
 /**
  * Created by jameskizer on 12/8/16.
  */
@@ -53,7 +55,7 @@ public class CTFTextVSRAssessmentLayout extends RSXMultipleImageSelectionSurveyL
     }
 
     protected boolean supportsMultipleSelection() {
-        return true;
+        return ((CTFTextVSRAssessmentStep)this.getStep()).getOptions().getMaximumSelectedNumberOfItems() != 1;
     }
 
     @Override

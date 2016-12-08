@@ -140,6 +140,8 @@ abstract public class RSXMultipleImageSelectionSurveyLayout extends FrameLayout 
     public void initStepLayout(RSXMultipleImageSelectionSurveyStep step) {
 
         RSXMultipleImageSelectionSurveyOptions options = step.getOptions();
+        final int maximumNumberOfSelectedItems = options.getMaximumSelectedNumberOfItems();
+
 
         // Init root
         LayoutInflater inflater = LayoutInflater.from(getContext());
@@ -234,7 +236,15 @@ abstract public class RSXMultipleImageSelectionSurveyLayout extends FrameLayout 
                     RSXSurveyAdaptor adapter = (RSXSurveyAdaptor) parent.getAdapter();
 
                     if (self.supportsMultipleSelection()) {
-                        adapter.setSelectedForValue(choice.getValue(), !adapter.getSelectedForValue(choice.getValue()));
+                        if (!adapter.getSelectedForValue(choice.getValue()) &&
+                                maximumNumberOfSelectedItems != 0) {
+                            if(adapter.getCurrentSelected().size() < maximumNumberOfSelectedItems) {
+                                adapter.setSelectedForValue(choice.getValue(), !adapter.getSelectedForValue(choice.getValue()));
+                            }
+                        }
+                        else {
+                            adapter.setSelectedForValue(choice.getValue(), !adapter.getSelectedForValue(choice.getValue()));
+                        }
                     }
                     else {
                         //multiple selections not allowed

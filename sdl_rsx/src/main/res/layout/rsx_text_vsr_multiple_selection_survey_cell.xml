@@ -22,7 +22,9 @@
                 app:layout_widthPercent="100%"
                 app:layout_aspectRatio="100%"
                 android:layout_centerInParent="true"
-                android:scaleType="centerCrop"/>
+                android:textSize="24sp"
+                android:gravity="center"
+                android:background="@drawable/border"/>
 
             <ImageView
                 android:id="@+id/check_image_view"
