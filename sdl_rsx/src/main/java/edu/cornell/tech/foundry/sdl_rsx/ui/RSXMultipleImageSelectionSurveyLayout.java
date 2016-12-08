@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONObject;
+import org.researchstack.backbone.model.Choice;
 import org.researchstack.backbone.result.StepResult;
 import org.researchstack.backbone.step.QuestionStep;
 import org.researchstack.backbone.step.Step;
@@ -35,7 +36,6 @@ import org.researchstack.backbone.utils.TextUtils;
 import java.lang.reflect.Constructor;
 import java.util.Set;
 
-import edu.cornell.tech.foundry.sdl_rsx.choice.RSXImageChoice;
 import edu.cornell.tech.foundry.sdl_rsx.model.RSXMultipleImageSelectionSurveyOptions;
 import edu.cornell.tech.foundry.sdl_rsx.step.RSXMultipleImageSelectionSurveyStep;
 import edu.cornell.tech.foundry.sdl_rsx.R;
@@ -66,7 +66,7 @@ abstract public class RSXMultipleImageSelectionSurveyLayout extends FrameLayout 
     private Button somethingSelectedButton;
     private Button nothingSelectedButton;
 
-    private RSXMultipleImageSelectionSurveyAdapter collectionAdapter;
+    private RSXSurveyAdaptor collectionAdapter;
 //    private GridView imagesGridView;
 
 
@@ -203,7 +203,7 @@ abstract public class RSXMultipleImageSelectionSurveyLayout extends FrameLayout 
                         RSXMultipleImageSelectionSurveyStep.class,
                         StepResult.class);
 
-                this.collectionAdapter = (RSXMultipleImageSelectionSurveyAdapter)
+                this.collectionAdapter = (RSXSurveyAdaptor)
                         constructor.newInstance(this.step, this.stepResult);
             }
             catch (Exception e) {
@@ -230,17 +230,17 @@ abstract public class RSXMultipleImageSelectionSurveyLayout extends FrameLayout 
                         int position,
                         long id) {
 
-                    RSXImageChoice imageChoice = (RSXImageChoice) parent.getItemAtPosition(position);
-                    RSXMultipleImageSelectionSurveyAdapter adapter = (RSXMultipleImageSelectionSurveyAdapter) parent.getAdapter();
+                    Choice choice = (Choice) parent.getItemAtPosition(position);
+                    RSXSurveyAdaptor adapter = (RSXSurveyAdaptor) parent.getAdapter();
 
                     if (self.supportsMultipleSelection()) {
-                        adapter.setSelectedForValue(imageChoice.getValue(), !adapter.getSelectedForValue(imageChoice.getValue()));
+                        adapter.setSelectedForValue(choice.getValue(), !adapter.getSelectedForValue(choice.getValue()));
                     }
                     else {
                         //multiple selections not allowed
-                        boolean currentSelectionSetting = adapter.getSelectedForValue(imageChoice.getValue());
+                        boolean currentSelectionSetting = adapter.getSelectedForValue(choice.getValue());
                         adapter.clearCurrentSelected();
-                        adapter.setSelectedForValue(imageChoice.getValue(), !currentSelectionSetting);
+                        adapter.setSelectedForValue(choice.getValue(), !currentSelectionSetting);
                     }
                     self.onSelection();
                 }

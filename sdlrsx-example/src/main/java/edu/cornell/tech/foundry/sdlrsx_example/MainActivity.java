@@ -10,7 +10,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.researchstack.backbone.StorageAccess;
+import org.researchstack.backbone.answerformat.AnswerFormat;
+import org.researchstack.backbone.answerformat.ChoiceAnswerFormat;
 import org.researchstack.backbone.answerformat.TextAnswerFormat;
+import org.researchstack.backbone.model.Choice;
 import org.researchstack.backbone.model.ConsentDocument;
 import org.researchstack.backbone.model.ConsentSection;
 import org.researchstack.backbone.model.ConsentSignature;
@@ -26,11 +29,14 @@ import org.researchstack.backbone.task.Task;
 import org.researchstack.backbone.ui.PinCodeActivity;
 import org.researchstack.backbone.ui.ViewTaskActivity;
 import org.researchstack.backbone.ui.step.layout.ConsentSignatureStepLayout;
+import org.researchstack.backbone.utils.ThemeUtils;
 
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import edu.cornell.tech.foundry.sdl_rsx.model.RSXMultipleImageSelectionSurveyOptions;
+import edu.cornell.tech.foundry.sdl_rsx.step.CTFTextVSRAssessmentStep;
 import edu.cornell.tech.foundry.sdl_rsx.step.PAMMultipleSelectionStep;
 import edu.cornell.tech.foundry.sdl_rsx.task.MEDLFullAssessmentTask;
 import edu.cornell.tech.foundry.sdl_rsx.task.MEDLSpotAssessmentTask;
@@ -147,7 +153,7 @@ public class MainActivity extends PinCodeActivity {
             @Override
             public void onClick(View v)
             {
-                launchPAMMultiple();
+                launchText();
             }
         });
 
@@ -452,6 +458,41 @@ public class MainActivity extends PinCodeActivity {
         Log.i(LOG_TAG, "Launching PAMMultiple");
 
         PAMMultipleSelectionStep step = PAMMultipleSelectionStep.create(PAM_MULTIPLE_ASSESSMENT, this);
+
+        OrderedTask task = new OrderedTask(PAM_MULTIPLE_ASSESSMENT, step);
+
+        // Create an activity using the task and set a delegate.
+        Intent intent = ViewTaskActivity.newIntent(this, task);
+        startActivityForResult(intent, REQUEST_PAM_MULTIPLE);
+
+    }
+
+    private void launchText()
+    {
+        Log.i(LOG_TAG, "Launching PAMMultiple");
+
+//        public CTFTextVSRAssessmentStep(
+//            String identifier,
+//            String title,
+//            AnswerFormat answerFormat,
+//            RSXMultipleImageSelectionSurveyOptions options
+//    )
+
+        String title = "Below is a list of behaviors that people may have trouble controlling. Please select UP TO 4 of the ones that you have the most trouble controlling.";
+
+        Choice choice1 = new Choice("choice1", "choice1");
+        Choice choice2 = new Choice("choice2", "choice2");
+
+        AnswerFormat answerFormat = new ChoiceAnswerFormat(AnswerFormat.ChoiceAnswerStyle.MultipleChoice, choice1, choice2);
+
+        RSXMultipleImageSelectionSurveyOptions options = new RSXMultipleImageSelectionSurveyOptions();
+        options.setItemMinSpacing(12);
+        options.setItemsPerRow(2);
+        options.setSomethingSelectedButtonColor(ThemeUtils.getAccentColor(this));
+        options.setNothingSelectedButtonColor(ThemeUtils.getAccentColor(this));
+
+        CTFTextVSRAssessmentStep step = new CTFTextVSRAssessmentStep(PAM_MULTIPLE_ASSESSMENT, title, answerFormat, options);
+//        PAMMultipleSelectionStep step = PAMMultipleSelectionStep.create(PAM_MULTIPLE_ASSESSMENT, this);
 
         OrderedTask task = new OrderedTask(PAM_MULTIPLE_ASSESSMENT, step);
 

@@ -1,21 +1,18 @@
 package edu.cornell.tech.foundry.sdl_rsx.ui;
 
-import android.content.Context;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.researchstack.backbone.answerformat.ChoiceAnswerFormat;
+import org.researchstack.backbone.model.Choice;
 import org.researchstack.backbone.result.StepResult;
-import org.researchstack.backbone.step.Step;
-import org.researchstack.backbone.utils.ResUtils;
 import org.researchstack.backbone.utils.TextUtils;
 
 import java.io.IOException;
@@ -24,22 +21,22 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import edu.cornell.tech.foundry.sdl_rsx.R;
 import edu.cornell.tech.foundry.sdl_rsx.answerformat.RSXImageChoiceAnswerFormat;
 import edu.cornell.tech.foundry.sdl_rsx.choice.RSXImageChoice;
 import edu.cornell.tech.foundry.sdl_rsx.step.RSXMultipleImageSelectionSurveyStep;
-import edu.cornell.tech.foundry.sdl_rsx.R;
 
 /**
  * Created by jk on 6/15/16.
  */
-public class RSXMultipleImageSelectionSurveyAdapter <T> extends RSXSurveyAdaptor {
+public class CTFTextVSRAssessmentAdaptor<T> extends RSXSurveyAdaptor {
 
     private Set<T> currentSelected;
-    private RSXImageChoice[] imageChoices;
+    private Choice[] textChoices;
     private RSXMultipleImageSelectionSurveyStep step;
     private int cellWidth;
 
-    public RSXMultipleImageSelectionSurveyAdapter(
+    public CTFTextVSRAssessmentAdaptor(
             RSXMultipleImageSelectionSurveyStep step,
             StepResult<T[]> result) {
         super();
@@ -53,14 +50,14 @@ public class RSXMultipleImageSelectionSurveyAdapter <T> extends RSXSurveyAdaptor
             currentSelected.addAll(Arrays.asList(resultArray));
         }
 
-        RSXImageChoiceAnswerFormat answerFormat = (RSXImageChoiceAnswerFormat)this.getStep().getAnswerFormat();
+        ChoiceAnswerFormat answerFormat = (ChoiceAnswerFormat)this.getStep().getAnswerFormat();
 
-        this.imageChoices = answerFormat.getImageChoices();
+        this.textChoices = answerFormat.getChoices();
     }
 
     @Override
     public int getCount() {
-        int length = this.imageChoices.length;
+        int length = this.textChoices.length;
         return length;
     }
 
@@ -70,7 +67,7 @@ public class RSXMultipleImageSelectionSurveyAdapter <T> extends RSXSurveyAdaptor
 
     @Override
     public Object getItem(int position) {
-        return this.imageChoices[position];
+        return this.textChoices[position];
     }
 
     @Override
@@ -78,30 +75,36 @@ public class RSXMultipleImageSelectionSurveyAdapter <T> extends RSXSurveyAdaptor
         return position;
     }
 
-    protected View configureCellForImageChoice(View missCell, RSXImageChoice<T> imageChoice, ViewGroup parent) {
+    protected View configureCellForImageChoice(View textVSRCell, Choice<T> textChoice, ViewGroup parent) {
 
-        ImageView itemImageView = (ImageView) missCell.findViewById(R.id.item_image_view);
-        ImageView checkImageView = (ImageView) missCell.findViewById(R.id.check_image_view);
-        LinearLayout textContainer = (LinearLayout) missCell.findViewById(R.id.text_container);
+        TextView textView = (TextView) textVSRCell.findViewById(R.id.item_text_view);
+        ImageView checkImageView = (ImageView) textVSRCell.findViewById(R.id.check_image_view);
+        LinearLayout textContainer = (LinearLayout) textVSRCell.findViewById(R.id.text_container);
 
-        try {
-            InputStream inputStream = missCell.getContext().getAssets().open(imageChoice.getNormalStateImage());
-            Drawable d = Drawable.createFromStream(inputStream, null);
-            itemImageView.setImageDrawable(d);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        textView.setText(textChoice.getText());
 
-        if (this.getSelectedForValue((T) imageChoice.getValue())) {
+//        try {
+////            InputStream inputStream = missCell.getContext().getAssets().open(imageChoice.getNormalStateImage());
+////            Drawable d = Drawable.createFromStream(inputStream, null);
+////            itemImageView.setImageDrawable(d);
+//
+//
+//
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
+        if (this.getSelectedForValue((T) textChoice.getValue())) {
 
             if(this.getStep().getOptions().getItemCellSelectedColor() != 0) {
                 int color = this.getStep().getOptions().getItemCellSelectedColor();
-                missCell.setBackgroundColor(color);
+                textVSRCell.setBackgroundColor(color);
             }
 
             if (!TextUtils.isEmpty( this.getStep().getOptions().getItemCellSelectedOverlayImageTitle() )) {
                 try {
-                    InputStream inputStream = missCell.getContext().getAssets().open(this.getStep().getOptions().getItemCellSelectedOverlayImageTitle());
+                    InputStream inputStream = textVSRCell.getContext().getAssets().open(this.getStep().getOptions().getItemCellSelectedOverlayImageTitle());
                     Drawable d = Drawable.createFromStream(inputStream, null);
                     checkImageView.setImageDrawable(d);
                     checkImageView.setVisibility(View.VISIBLE);
@@ -111,13 +114,14 @@ public class RSXMultipleImageSelectionSurveyAdapter <T> extends RSXSurveyAdaptor
             }
         }
         else {
-            missCell.setBackgroundColor(missCell.getResources().getColor(android.R.color.transparent));
+            textVSRCell.setBackgroundColor(textVSRCell.getResources().getColor(android.R.color.holo_green_dark));
+//            textVSRCell.setBackgroundColor(textVSRCell.getResources().getColor(android.R.color.transparent));
             checkImageView.setVisibility(View.INVISIBLE);
         }
 
         textContainer.setVisibility(View.GONE);
 
-        return missCell;
+        return textVSRCell;
     }
 
     @Override
@@ -127,7 +131,7 @@ public class RSXMultipleImageSelectionSurveyAdapter <T> extends RSXSurveyAdaptor
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         if (convertView == null) {
             cell = (FrameLayout) inflater.inflate(
-                    R.layout.rsx_multiple_image_selection_survey_cell,
+                    R.layout.rsx_text_vsr_multiple_selection_survey_cell,
                     parent,
                     false
             );
@@ -136,20 +140,17 @@ public class RSXMultipleImageSelectionSurveyAdapter <T> extends RSXSurveyAdaptor
             cell = (FrameLayout) convertView;
         }
 
-        return this.configureCellForImageChoice(cell, this.imageChoices[position], parent);
+        return this.configureCellForImageChoice(cell, this.textChoices[position], parent);
     }
 
-    @Override
     public Set<T> getCurrentSelected() {
         return this.currentSelected;
     }
 
-    @Override
     public void clearCurrentSelected() {
         this.currentSelected.clear();
     }
 
-    @Override
     public void setSelectedForValue(Object value, boolean selected) {
         //add or remove from hash based on selected
         if (selected) {
@@ -160,7 +161,6 @@ public class RSXMultipleImageSelectionSurveyAdapter <T> extends RSXSurveyAdaptor
         }
     }
 
-    @Override
     public boolean getSelectedForValue(Object value) {
         return this.currentSelected.contains((T)value);
     }
