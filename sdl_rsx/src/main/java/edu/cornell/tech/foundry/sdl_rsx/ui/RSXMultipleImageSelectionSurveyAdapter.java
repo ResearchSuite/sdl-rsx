@@ -1,6 +1,7 @@
 package edu.cornell.tech.foundry.sdl_rsx.ui;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -94,7 +95,8 @@ public class RSXMultipleImageSelectionSurveyAdapter <T> extends BaseAdapter {
         if (this.getSelectedForValue((T) imageChoice.getValue())) {
 
             if(this.getStep().getOptions().getItemCellSelectedColor() != 0) {
-                missCell.setBackgroundColor(this.getStep().getOptions().getItemCellSelectedColor());
+                int color = this.getStep().getOptions().getItemCellSelectedColor();
+                missCell.setBackgroundColor(color);
             }
 
             if (!TextUtils.isEmpty( this.getStep().getOptions().getItemCellSelectedOverlayImageTitle() )) {

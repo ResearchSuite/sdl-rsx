@@ -31,6 +31,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import edu.cornell.tech.foundry.sdl_rsx.step.PAMMultipleSelectionStep;
 import edu.cornell.tech.foundry.sdl_rsx.task.MEDLFullAssessmentTask;
 import edu.cornell.tech.foundry.sdl_rsx.task.MEDLSpotAssessmentTask;
 import edu.cornell.tech.foundry.sdl_rsx.task.PAMTask;
@@ -49,6 +50,7 @@ public class MainActivity extends PinCodeActivity {
     private static final int REQUEST_PAM  = 4;
     private static final int REQUEST_MEDL_FULL  = 5;
     private static final int REQUEST_MEDL_SPOT  = 6;
+    private static final int REQUEST_PAM_MULTIPLE  = 7;
 
 
     public static final  String YADL_FULL_ASSESSMENT             = "yadl_full_assessment";
@@ -56,6 +58,7 @@ public class MainActivity extends PinCodeActivity {
     public static final  String PAM_ASSESSMENT             = "pam_assessment";
     public static final  String MEDL_FULL_ASSESSMENT             = "medl_full_assessment";
     public static final  String MEDL_SPOT_ASSESSMENT             = "medl_spot_assessment";
+    public static final  String PAM_MULTIPLE_ASSESSMENT             = "pam_multiple_assessment";
 
 //    public static final  String CONSENT                   = "consent";
 //    public static final  String CONSENT_DOC               = "consent_doc";
@@ -71,6 +74,7 @@ public class MainActivity extends PinCodeActivity {
     private AppCompatButton medlFullButton;
     private AppCompatButton medlSpotButton;
     private AppCompatButton pamButton;
+    private AppCompatButton pamMultipleButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,6 +138,16 @@ public class MainActivity extends PinCodeActivity {
             public void onClick(View v)
             {
                 launchPAM();
+            }
+        });
+
+        pamMultipleButton = (AppCompatButton) findViewById(R.id.pam_multiple_button);
+        pamMultipleButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                launchPAMMultiple();
             }
         });
 
@@ -299,6 +313,10 @@ public class MainActivity extends PinCodeActivity {
             Log.i(LOG_TAG, "PAM FINISHED");
             processPAMResult((TaskResult) data.getSerializableExtra(ViewTaskActivity.EXTRA_TASK_RESULT));
         }
+        else if(requestCode == REQUEST_PAM_MULTIPLE && resultCode == RESULT_OK) {
+            Log.i(LOG_TAG, "PAM MULTIPLE FINISHED");
+            processPAMMultipleResult((TaskResult) data.getSerializableExtra(ViewTaskActivity.EXTRA_TASK_RESULT));
+        }
         else if(requestCode == REQUEST_MEDL_FULL && resultCode == RESULT_OK) {
             Log.i(LOG_TAG, "MEDL FULL FINISHED");
 
@@ -353,6 +371,11 @@ public class MainActivity extends PinCodeActivity {
     }
 
     private void processPAMResult(TaskResult result)
+    {
+        Log.i(LOG_TAG, result.toString());
+    }
+
+    private void processPAMMultipleResult(TaskResult result)
     {
         Log.i(LOG_TAG, result.toString());
     }
@@ -421,6 +444,20 @@ public class MainActivity extends PinCodeActivity {
         // Create an activity using the task and set a delegate.
         Intent intent = ViewTaskActivity.newIntent(this, task);
         startActivityForResult(intent, REQUEST_PAM);
+
+    }
+
+    private void launchPAMMultiple()
+    {
+        Log.i(LOG_TAG, "Launching PAMMultiple");
+
+        PAMMultipleSelectionStep step = PAMMultipleSelectionStep.create(PAM_MULTIPLE_ASSESSMENT, this);
+
+        OrderedTask task = new OrderedTask(PAM_MULTIPLE_ASSESSMENT, step);
+
+        // Create an activity using the task and set a delegate.
+        Intent intent = ViewTaskActivity.newIntent(this, task);
+        startActivityForResult(intent, REQUEST_PAM_MULTIPLE);
 
     }
 }

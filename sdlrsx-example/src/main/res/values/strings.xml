@@ -6,6 +6,7 @@
     <string name="medl_full_button">MEDL Full Assessment</string>
     <string name="medl_spot_button">MEDL Spot Assessment</string>
     <string name="pam_button">PAM</string>
+    <string name="pam_multiple_button">PAM Multiple</string>
     <string name="date_consented">Date Consented:</string>
 
     <string name="yadl_json">json/yadl.json</string>

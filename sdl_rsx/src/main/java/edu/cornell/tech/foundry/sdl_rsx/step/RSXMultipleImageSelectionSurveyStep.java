@@ -10,6 +10,10 @@ import edu.cornell.tech.foundry.sdl_rsx.model.RSXMultipleImageSelectionSurveyOpt
  */
 abstract public class RSXMultipleImageSelectionSurveyStep extends QuestionStep {
 
+    interface VisibilityFilter<T> {
+        public boolean isVisible(T value);
+    }
+
     /**
      * Returns a new question step that includes the specified identifier, title, image, and answer
      * format.
@@ -21,6 +25,8 @@ abstract public class RSXMultipleImageSelectionSurveyStep extends QuestionStep {
      */
 
     private RSXMultipleImageSelectionSurveyOptions options;
+    private VisibilityFilter visibilityFilter;
+
     public RSXMultipleImageSelectionSurveyStep(
             String identifier,
             String title,
@@ -30,6 +36,19 @@ abstract public class RSXMultipleImageSelectionSurveyStep extends QuestionStep {
     {
         super(identifier, title, answerFormat);
         this.options = options;
+    }
+
+    public RSXMultipleImageSelectionSurveyStep(
+            String identifier,
+            String title,
+            AnswerFormat answerFormat,
+            RSXMultipleImageSelectionSurveyOptions options,
+            VisibilityFilter visibilityFilter
+    )
+    {
+        super(identifier, title, answerFormat);
+        this.options = options;
+        this.visibilityFilter = visibilityFilter;
     }
 
     public RSXMultipleImageSelectionSurveyOptions getOptions() {
