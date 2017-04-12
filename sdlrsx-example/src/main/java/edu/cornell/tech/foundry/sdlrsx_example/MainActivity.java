@@ -23,6 +23,7 @@ import org.researchstack.backbone.step.ConsentDocumentStep;
 import org.researchstack.backbone.step.ConsentSignatureStep;
 import org.researchstack.backbone.step.ConsentVisualStep;
 import org.researchstack.backbone.step.FormStep;
+import org.researchstack.backbone.step.InstructionStep;
 import org.researchstack.backbone.step.QuestionStep;
 import org.researchstack.backbone.task.OrderedTask;
 import org.researchstack.backbone.task.Task;
@@ -153,7 +154,7 @@ public class MainActivity extends PinCodeActivity {
             @Override
             public void onClick(View v)
             {
-                launchText();
+                launchPAMMultiple();
             }
         });
 
@@ -458,8 +459,9 @@ public class MainActivity extends PinCodeActivity {
         Log.i(LOG_TAG, "Launching PAMMultiple");
 
         PAMMultipleSelectionStep step = PAMMultipleSelectionStep.create(PAM_MULTIPLE_ASSESSMENT, this);
+        InstructionStep instructionStep = new InstructionStep("instruction", "PAM Multiple Completed", "Thanks for completing the PAM multiple step");
 
-        OrderedTask task = new OrderedTask(PAM_MULTIPLE_ASSESSMENT, step);
+        OrderedTask task = new OrderedTask(PAM_MULTIPLE_ASSESSMENT, step, instructionStep);
 
         // Create an activity using the task and set a delegate.
         Intent intent = ViewTaskActivity.newIntent(this, task);

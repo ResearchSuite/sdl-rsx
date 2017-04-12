@@ -6,7 +6,7 @@ version = '0.0.3-SNAPSHOT'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    buildToolsVersion '25.0.0'
 
     defaultConfig {
         minSdkVersion 16
@@ -42,9 +42,10 @@ ext {
     libraryVersion = version
 
     userOrgName = 'edu-cornell-tech-foundry'
-    developerId = properties.getProperty("bintray.user")
-    developerName = properties.getProperty("bintray.developerName")
-    developerEmail = properties.getProperty("bintray.developerEmail")
+    bintrayUser = System.getenv('BINTRAY_USER')
+    bintrayKey = System.getenv('BINTRAY_KEY')
+    bintrayDevName = System.getenv('BINTRAY_DEVELOPER_NAME')
+    bintrayDevEmail = System.getenv('BINTRAY_DEVELOPER_EMAIL')
 
     licenseName = 'The Apache Software License, Version 2.0'
     licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
@@ -60,6 +61,44 @@ dependencies {
 }
 
 group = publishedGroupId                               // Maven Group ID for the artifact
+
+install {
+    repositories.mavenInstaller {
+        // This generates POM.xml with proper parameters
+        pom {
+            project {
+                packaging 'aar'
+                groupId publishedGroupId
+                artifactId artifact
+
+                // Add your description here
+                name libraryName
+                description libraryDescription
+                url siteUrl
+
+                // Set your license
+                licenses {
+                    license {
+                        name licenseName
+                        url licenseUrl
+                    }
+                }
+                developers {
+                    developer {
+                        id bintrayUser
+                        name bintrayDevName
+                        email bintrayDevEmail
+                    }
+                }
+                scm {
+                    connection gitUrl
+                    developerConnection gitUrl
+                    url siteUrl
+                }
+            }
+        }
+    }
+}
 
 if (project.hasProperty("android")) { // Android libraries
     task sourcesJar(type: Jar) {
@@ -96,10 +135,11 @@ artifacts {
 }
 
 bintray {
-//    user = properties.getProperty("bintray.user")
-//    key = properties.getProperty("bintray.apikey")
-    user = 'jdkizer9'
-    key = ''
+    user = bintrayUser
+    key = bintrayKey
+
+//    println user
+//    println key
 
     configurations = ['archives']
     pkg {

@@ -1,6 +1,7 @@
 package edu.cornell.tech.foundry.sdl_rsx.ui;
 
 import android.graphics.drawable.Drawable;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +32,7 @@ import edu.cornell.tech.foundry.sdl_rsx.step.RSXMultipleImageSelectionSurveyStep
  */
 public class CTFTextVSRAssessmentAdaptor<T> extends RSXSurveyAdaptor {
 
-    private Set<T> currentSelected;
+    private Set<Choice> currentSelected;
     private Choice[] textChoices;
     private RSXMultipleImageSelectionSurveyStep step;
     private int cellWidth;
@@ -41,18 +42,22 @@ public class CTFTextVSRAssessmentAdaptor<T> extends RSXSurveyAdaptor {
             StepResult<T[]> result) {
         super();
         this.step = step;
-        // Restore results
-        currentSelected = new HashSet<>();
 
-        T[] resultArray = result.getResult();
-        if(resultArray != null && resultArray.length > 0)
-        {
-            currentSelected.addAll(Arrays.asList(resultArray));
-        }
 
         ChoiceAnswerFormat answerFormat = (ChoiceAnswerFormat)this.getStep().getAnswerFormat();
 
         this.textChoices = answerFormat.getChoices();
+
+        // Restore results
+        currentSelected = new HashSet<>();
+
+        T[] resultArray = result.getResult();
+        if(resultArray != null && resultArray.length > 0) {
+            for (int i = 0; i < resultArray.length; i++) {
+                currentSelected.add(this.getChoiceForValue(resultArray[i], this.textChoices));
+
+            }
+        }
     }
 
     @Override
@@ -95,7 +100,7 @@ public class CTFTextVSRAssessmentAdaptor<T> extends RSXSurveyAdaptor {
 //            e.printStackTrace();
 //        }
 
-        if (this.getSelectedForValue((T) textChoice.getValue())) {
+        if (this.getSelectedForChoice(textChoice)) {
 
             if(this.getStep().getOptions().getItemCellSelectedColor() != 0) {
                 int color = this.getStep().getOptions().getItemCellSelectedColor();
@@ -142,26 +147,38 @@ public class CTFTextVSRAssessmentAdaptor<T> extends RSXSurveyAdaptor {
         return this.configureCellForImageChoice(cell, this.textChoices[position], parent);
     }
 
-    public Set<T> getCurrentSelected() {
+    public Set<Choice> getCurrentSelected() {
         return this.currentSelected;
+    }
+
+    @Nullable
+    @Override
+    public Choice getChoiceForValue(Object value, Choice[] choices) {
+        return null;
+    }
+
+    @Override
+    public Object getValueForChoice(Choice choice) {
+        return null;
     }
 
     public void clearCurrentSelected() {
         this.currentSelected.clear();
     }
 
-    public void setSelectedForValue(Object value, boolean selected) {
+    @Override
+    public void setSelectedForChoice(Choice choice, boolean selected) {
         //add or remove from hash based on selected
         if (selected) {
-            this.currentSelected.add((T)value);
+            this.currentSelected.add(choice);
         }
         else {
-            this.currentSelected.remove((T)value);
+            this.currentSelected.remove(choice);
         }
     }
 
-    public boolean getSelectedForValue(Object value) {
-        return this.currentSelected.contains((T)value);
+    public boolean getSelectedForChoice(Choice choice) {
+        return this.currentSelected.contains(choice);
     }
 
 }

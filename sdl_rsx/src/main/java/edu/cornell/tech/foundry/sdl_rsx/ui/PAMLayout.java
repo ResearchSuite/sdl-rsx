@@ -62,4 +62,9 @@ public class PAMLayout extends RSXMultipleImageSelectionSurveyLayout {
     protected boolean supportsMultipleSelection() {
         return false;
     }
+
+    @Override
+    public Class<?> getAdaptorClass() {
+        return PAMAdaptor.class;
+    }
 }

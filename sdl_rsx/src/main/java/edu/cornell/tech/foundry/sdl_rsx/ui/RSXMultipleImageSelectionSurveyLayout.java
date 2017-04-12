@@ -34,6 +34,7 @@ import org.researchstack.backbone.utils.ResUtils;
 import org.researchstack.backbone.utils.TextUtils;
 
 import java.lang.reflect.Constructor;
+import java.util.ArrayList;
 import java.util.Set;
 
 import edu.cornell.tech.foundry.sdl_rsx.model.RSXMultipleImageSelectionSurveyOptions;
@@ -236,21 +237,21 @@ abstract public class RSXMultipleImageSelectionSurveyLayout extends FrameLayout 
                     RSXSurveyAdaptor adapter = (RSXSurveyAdaptor) parent.getAdapter();
 
                     if (self.supportsMultipleSelection()) {
-                        if (!adapter.getSelectedForValue(choice.getValue()) &&
+                        if (!adapter.getSelectedForChoice(choice) &&
                                 maximumNumberOfSelectedItems != 0) {
                             if(adapter.getCurrentSelected().size() < maximumNumberOfSelectedItems) {
-                                adapter.setSelectedForValue(choice.getValue(), !adapter.getSelectedForValue(choice.getValue()));
+                                adapter.setSelectedForChoice(choice, !adapter.getSelectedForChoice(choice));
                             }
                         }
                         else {
-                            adapter.setSelectedForValue(choice.getValue(), !adapter.getSelectedForValue(choice.getValue()));
+                            adapter.setSelectedForChoice(choice, !adapter.getSelectedForChoice(choice));
                         }
                     }
                     else {
                         //multiple selections not allowed
-                        boolean currentSelectionSetting = adapter.getSelectedForValue(choice.getValue());
+                        boolean currentSelectionSetting = adapter.getSelectedForChoice(choice);
                         adapter.clearCurrentSelected();
-                        adapter.setSelectedForValue(choice.getValue(), !currentSelectionSetting);
+                        adapter.setSelectedForChoice(choice, !currentSelectionSetting);
                     }
                     self.onSelection();
                 }
@@ -321,11 +322,19 @@ abstract public class RSXMultipleImageSelectionSurveyLayout extends FrameLayout 
         if(skipped)
         {
             this.collectionAdapter.clearCurrentSelected();
-            stepResult.setResult( this.collectionAdapter.getCurrentSelected().toArray());
+            ArrayList<Object> selectedValues = new ArrayList<>();
+            for(Object object : this.collectionAdapter.getCurrentSelected().toArray()){
+                selectedValues.add(this.collectionAdapter.getValueForChoice( (Choice)object ));
+            }
+            stepResult.setResult(selectedValues.toArray());
         }
         else
         {
-            stepResult.setResult( this.collectionAdapter.getCurrentSelected().toArray());
+            ArrayList<Object> selectedValues = new ArrayList<>();
+            for(Object object : this.collectionAdapter.getCurrentSelected().toArray()){
+                selectedValues.add(this.collectionAdapter.getValueForChoice( (Choice)object ));
+            }
+            stepResult.setResult(selectedValues.toArray());
         }
         return stepResult;
     }

@@ -3,6 +3,7 @@ package edu.cornell.tech.foundry.sdl_rsx.ui;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.researchstack.backbone.model.Choice;
 import org.researchstack.backbone.result.StepResult;
 import org.researchstack.backbone.step.Step;
 import org.researchstack.backbone.utils.ResUtils;
@@ -34,7 +36,7 @@ import edu.cornell.tech.foundry.sdl_rsx.R;
  */
 public class RSXMultipleImageSelectionSurveyAdapter <T> extends RSXSurveyAdaptor {
 
-    private Set<T> currentSelected;
+    private Set<Choice> currentSelected;
     private RSXImageChoice[] imageChoices;
     private RSXMultipleImageSelectionSurveyStep step;
     private int cellWidth;
@@ -44,18 +46,22 @@ public class RSXMultipleImageSelectionSurveyAdapter <T> extends RSXSurveyAdaptor
             StepResult<T[]> result) {
         super();
         this.step = step;
+
+
+        RSXImageChoiceAnswerFormat answerFormat = (RSXImageChoiceAnswerFormat)this.getStep().getAnswerFormat();
+
+        this.imageChoices = answerFormat.getImageChoices();
+
         // Restore results
         currentSelected = new HashSet<>();
 
         T[] resultArray = result.getResult();
         if(resultArray != null && resultArray.length > 0)
         {
-            currentSelected.addAll(Arrays.asList(resultArray));
+            for(int i=0; i<resultArray.length; i++) {
+                currentSelected.add(this.getChoiceForValue(resultArray[i], this.imageChoices));
+            }
         }
-
-        RSXImageChoiceAnswerFormat answerFormat = (RSXImageChoiceAnswerFormat)this.getStep().getAnswerFormat();
-
-        this.imageChoices = answerFormat.getImageChoices();
     }
 
     @Override
@@ -92,7 +98,7 @@ public class RSXMultipleImageSelectionSurveyAdapter <T> extends RSXSurveyAdaptor
             e.printStackTrace();
         }
 
-        if (this.getSelectedForValue((T) imageChoice.getValue())) {
+        if (this.getSelectedForChoice(imageChoice)) {
 
             if(this.getStep().getOptions().getItemCellSelectedColor() != 0) {
                 int color = this.getStep().getOptions().getItemCellSelectedColor();
@@ -140,7 +146,7 @@ public class RSXMultipleImageSelectionSurveyAdapter <T> extends RSXSurveyAdaptor
     }
 
     @Override
-    public Set<T> getCurrentSelected() {
+    public Set<Choice> getCurrentSelected() {
         return this.currentSelected;
     }
 
@@ -150,19 +156,18 @@ public class RSXMultipleImageSelectionSurveyAdapter <T> extends RSXSurveyAdaptor
     }
 
     @Override
-    public void setSelectedForValue(Object value, boolean selected) {
+    public void setSelectedForChoice(Choice choice, boolean selected) {
         //add or remove from hash based on selected
         if (selected) {
-            this.currentSelected.add((T)value);
+            this.currentSelected.add(choice);
         }
         else {
-            this.currentSelected.remove((T)value);
+            this.currentSelected.remove(choice);
         }
     }
 
     @Override
-    public boolean getSelectedForValue(Object value) {
-        return this.currentSelected.contains((T)value);
+    public boolean getSelectedForChoice(Choice choice) {
+        return this.currentSelected.contains(choice);
     }
-
 }

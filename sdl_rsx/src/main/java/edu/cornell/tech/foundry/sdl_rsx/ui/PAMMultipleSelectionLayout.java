@@ -32,7 +32,7 @@ public class PAMMultipleSelectionLayout extends RSXMultipleImageSelectionSurveyL
     @Override
     public void initialize(Step step, StepResult result)
     {
-        super.initialize(step, null);
+        super.initialize(step, result);
     }
 
     //Step Layout Methods
@@ -66,5 +66,10 @@ public class PAMMultipleSelectionLayout extends RSXMultipleImageSelectionSurveyL
 
     protected boolean supportsMultipleSelection() {
         return true;
+    }
+
+    @Override
+    public Class<?> getAdaptorClass() {
+        return PAMMultipleAdaptor.class;
     }
 }
