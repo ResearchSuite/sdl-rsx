@@ -1,1 +1,1 @@
-include ':sdlrsx-example', ':sdl_rsx'
+include ':sdlrsx-example', ':sdl_rsx', ':sdl_rsx_rstbsupport'

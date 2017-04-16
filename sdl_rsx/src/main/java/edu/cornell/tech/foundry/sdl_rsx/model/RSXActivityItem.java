@@ -15,6 +15,12 @@ public class RSXActivityItem extends RSXImageItem {
     private String activityDescription;
     private String imageTitle;
 
+    public RSXActivityItem(String identifier, String activityDescription, String imageTitle) {
+        super(identifier);
+        this.activityDescription = activityDescription;
+        this.imageTitle = imageTitle;
+    }
+
     public RSXActivityItem(JSONObject json, Context context) {
         super(json, context);
 

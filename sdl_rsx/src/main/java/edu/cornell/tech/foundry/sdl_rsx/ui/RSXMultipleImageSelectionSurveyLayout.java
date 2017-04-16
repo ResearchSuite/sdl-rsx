@@ -317,6 +317,7 @@ abstract public class RSXMultipleImageSelectionSurveyLayout extends FrameLayout 
         return getResources().getString(stringResId);
     }
 
+    //TODO: Add Excluded and not selected items to results
     public StepResult getStepResult(boolean skipped)
     {
         if(skipped)

@@ -22,6 +22,8 @@ import org.researchstack.backbone.utils.TextUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -41,6 +43,9 @@ public class RSXMultipleImageSelectionSurveyAdapter <T> extends RSXSurveyAdaptor
     private RSXMultipleImageSelectionSurveyStep step;
     private int cellWidth;
 
+    //TODO: Add excluded items to result
+
+
     public RSXMultipleImageSelectionSurveyAdapter(
             RSXMultipleImageSelectionSurveyStep step,
             StepResult<T[]> result) {
@@ -50,7 +55,27 @@ public class RSXMultipleImageSelectionSurveyAdapter <T> extends RSXSurveyAdaptor
 
         RSXImageChoiceAnswerFormat answerFormat = (RSXImageChoiceAnswerFormat)this.getStep().getAnswerFormat();
 
-        this.imageChoices = answerFormat.getImageChoices();
+        if (this.step.getExcludedIdentifiers() != null) {
+            ArrayList<RSXImageChoice> filteredChoices = new ArrayList<>();
+            for (RSXImageChoice imageChoice : answerFormat.getImageChoices()) {
+                boolean exclude = false;
+                for (int i=0; i<this.step.getExcludedIdentifiers().length; i++) {
+                    String identifier = this.step.getExcludedIdentifiers()[i];
+                    if (identifier.equals(imageChoice.getValue())) {
+                        exclude = true;
+                    }
+                }
+                if (!exclude) {
+                    filteredChoices.add(imageChoice);
+                }
+            }
+            this.imageChoices = new RSXImageChoice[filteredChoices.size()];
+            this.imageChoices = filteredChoices.toArray(this.imageChoices);
+        }
+        else {
+            this.imageChoices = answerFormat.getImageChoices();
+        }
+
 
         // Restore results
         currentSelected = new HashSet<>();

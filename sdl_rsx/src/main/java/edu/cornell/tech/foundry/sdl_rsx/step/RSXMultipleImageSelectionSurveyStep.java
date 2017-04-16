@@ -1,5 +1,7 @@
 package edu.cornell.tech.foundry.sdl_rsx.step;
 
+import android.support.annotation.Nullable;
+
 import org.researchstack.backbone.answerformat.AnswerFormat;
 import org.researchstack.backbone.step.QuestionStep;
 
@@ -25,7 +27,9 @@ abstract public class RSXMultipleImageSelectionSurveyStep extends QuestionStep {
      */
 
     private RSXMultipleImageSelectionSurveyOptions options;
-    private VisibilityFilter visibilityFilter;
+//    private VisibilityFilter visibilityFilter;
+    @Nullable
+    private String[] excludedIdentifiers;
 
     public RSXMultipleImageSelectionSurveyStep(
             String identifier,
@@ -48,10 +52,42 @@ abstract public class RSXMultipleImageSelectionSurveyStep extends QuestionStep {
     {
         super(identifier, title, answerFormat);
         this.options = options;
-        this.visibilityFilter = visibilityFilter;
+//        this.visibilityFilter = visibilityFilter;
+    }
+
+    public RSXMultipleImageSelectionSurveyStep(
+            String identifier,
+            String title,
+            AnswerFormat answerFormat,
+            RSXMultipleImageSelectionSurveyOptions options,
+            final String[] excludedIdentifiers
+    )
+    {
+        super(identifier, title, answerFormat);
+        this.options = options;
+        this.excludedIdentifiers = excludedIdentifiers;
+        //create visibility filter that leaves out excluded identitifiers
+//        this.visibilityFilter = new VisibilityFilter() {
+//            @Override
+//            public boolean isVisible(Object value) {
+//
+//                for (int i=0; i<excludedIdentifiers.length; i++) {
+//                    if (excludedIdentifiers[i].equals(value)) {
+//                        return false;
+//                    }
+//                }
+//
+//                return true;
+//            }
+//        };
     }
 
     public RSXMultipleImageSelectionSurveyOptions getOptions() {
         return this.options;
+    }
+
+    @Nullable
+    public String[] getExcludedIdentifiers() {
+        return excludedIdentifiers;
     }
 }

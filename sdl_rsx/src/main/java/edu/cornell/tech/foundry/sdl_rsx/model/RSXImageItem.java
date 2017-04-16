@@ -11,6 +11,9 @@ import edu.cornell.tech.foundry.sdl_rsx.choice.RSXImageChoice;
  */
 public abstract class RSXImageItem extends RSXItem {
 
+    public RSXImageItem(String identifier) {
+        super(identifier);
+    }
     public RSXImageItem(JSONObject json, Context context) {
         super(json, context);
     }
