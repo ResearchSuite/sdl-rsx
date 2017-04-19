@@ -73,9 +73,12 @@ public class YADLFullStepGenerator extends RSTBBaseStepGenerator {
 
             //does imageTitle need to be full path?
             String imagePath = generateImagePath(yadlFullStepDescriptor, item);
+            StringBuilder identifierBuilder = new StringBuilder(yadlFullStepDescriptor.identifier);
+            identifierBuilder.append(".");
+            identifierBuilder.append(item.identifier);
 
             RSXSingleImageClassificationSurveyStep yadlFullStep = new RSXSingleImageClassificationSurveyStep(
-                    item.identifier,
+                    identifierBuilder.toString(),
                     item.description,
                     yadlFullStepDescriptor.text,
                     imagePath,

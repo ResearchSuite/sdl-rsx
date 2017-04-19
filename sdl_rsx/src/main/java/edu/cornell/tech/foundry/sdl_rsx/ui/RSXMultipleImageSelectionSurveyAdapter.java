@@ -195,4 +195,6 @@ public class RSXMultipleImageSelectionSurveyAdapter <T> extends RSXSurveyAdaptor
     public boolean getSelectedForChoice(Choice choice) {
         return this.currentSelected.contains(choice);
     }
+
+
 }

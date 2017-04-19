@@ -57,7 +57,7 @@ public class YADLSpotStepGenerator extends RSTBBaseStepGenerator {
         return imageTitleStringBuilder.toString();
     }
 
-    protected String[] excludedIdentifiers(YADLSpotStepDescriptor yadlSpotStepDescriptor, List<YADLItemDescriptor> items, RSTBTaskBuilderHelper helper) {
+    protected String[] excludedIdentifiers(List<YADLItemDescriptor> items, YADLSpotStepDescriptor yadlSpotStepDescriptor, RSTBTaskBuilderHelper helper) {
         String[] emptyArray = new String[0];
 
         String filterKey = yadlSpotStepDescriptor.filterKey;
@@ -76,12 +76,18 @@ public class YADLSpotStepGenerator extends RSTBBaseStepGenerator {
         }
 
         String joinedItems = new String(filteredItemsBytes);
-        List<String> excludedIdentifiers = Arrays.asList((android.text.TextUtils.split(joinedItems, ",")));
-        if (excludedIdentifiers.size() > 0) {
-            String[] excludedIdentifierArray = new String[excludedIdentifiers.size()];
-            for (int i=0; i<excludedIdentifiers.size(); i++) {
-                excludedIdentifierArray[i] = excludedIdentifiers.get(i);
+        List<String> includedIdentifiers = Arrays.asList((android.text.TextUtils.split(joinedItems, ",")));
+        if (includedIdentifiers.size() > 0) {
+
+            ArrayList<String> excludedIdentifiers = new ArrayList<>();
+            for (YADLItemDescriptor item : items) {
+                if (!includedIdentifiers.contains(item.identifier)) {
+                    excludedIdentifiers.add(item.identifier);
+                }
             }
+
+            String[] excludedIdentifierArray = new String[excludedIdentifiers.size()];
+            excludedIdentifierArray = excludedIdentifiers.toArray(excludedIdentifierArray);
             return excludedIdentifierArray;
         }
         else {
@@ -117,8 +123,8 @@ public class YADLSpotStepGenerator extends RSTBBaseStepGenerator {
 
         RSXImageChoice[] choices = this.generateChoices(yadlSpotStepDescriptor, yadlSpotStepDescriptor.items);
         AnswerFormat answerFormat = new RSXImageChoiceAnswerFormat(AnswerFormat.ChoiceAnswerStyle.MultipleChoice, choices);
-//        String[] excludedIdentifiers = this.excludedIdentifiers(yadlSpotStepDescriptor, yadlSpotStepDescriptor.items, helper);
-        String[] excludedIdentifiers = {"BedToChair", "Dressing"};
+        String[] excludedIdentifiers = this.excludedIdentifiers(yadlSpotStepDescriptor.items, yadlSpotStepDescriptor, helper);
+//        String[] excludedIdentifiers = {"BedToChair", "Dressing"};
         RSXMultipleImageSelectionSurveyOptions options = new RSXMultipleImageSelectionSurveyOptions(jsonObject, helper.getContext());
 
         Step step = new YADLSpotAssessmentStep(

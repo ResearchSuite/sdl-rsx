@@ -7,6 +7,7 @@ import edu.cornell.tech.foundry.sdl_rsx.R;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
@@ -172,23 +173,42 @@ public class RSXSingleImageClassificationSurveyLayout extends FrameLayout implem
 
             for(int i=0; i<choices.length; i++) {
                 RSXTextChoiceWithColor choice = (RSXTextChoiceWithColor) choices[i];
+//                Button button = new AppCompatButton(getContext(), null, R.style.SingleImageClassificationButtonStyle);
                 Button button = new AppCompatButton(getContext());
                 button.setText(choice.getText());
                 button.setId(i);
+
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                         0,
                         LinearLayout.LayoutParams.WRAP_CONTENT,
                         1.0f);
 
-                button.setLayoutParams(layoutParams);
+                int marginInDP = 10;
+                int paddingInDP = 20;
+                final float scale = getResources().getDisplayMetrics().density;
 
-                button.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+                int marginInPX = (int)(marginInDP * scale + 0.5f);
+                int paddingInPX = (int)(paddingInDP * scale + 0.5f);
+
+                layoutParams.setMargins(marginInPX, 0, marginInPX, 0);
+                button.setLayoutParams(layoutParams);
+                button.setPadding(0, paddingInPX, 0, paddingInPX);
+
+                GradientDrawable gd = new GradientDrawable();
+
+
+//                button.setBackgroundColor(getResources().getColor(android.R.color.transparent));
                 if(choice.getColor() != 0) {
                     button.setTextColor(choice.getColor());
+                    gd.setStroke(2, choice.getColor());
                 }
                 else {
                     button.setTextColor(getResources().getColor(ThemeUtils.getAccentColor(getContext())));
+                    gd.setStroke(2, getResources().getColor(ThemeUtils.getAccentColor(getContext())));
                 }
+
+                gd.setCornerRadius(8);
+                button.setBackground(gd);
 
                 button.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
