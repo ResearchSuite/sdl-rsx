@@ -5,7 +5,11 @@ import android.support.annotation.Nullable;
 import org.json.JSONObject;
 import org.researchstack.backbone.result.StepResult;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 import edu.cornell.tech.foundry.researchsuiteresultprocessor.RSRPFrontEndServiceProvider.spi.RSRPFrontEnd;
@@ -36,6 +40,20 @@ public class YADLSpotRawTransformer implements RSRPFrontEnd {
 
         RSXMultipleImageSelectionSurveyResult yadlSpotResult = (RSXMultipleImageSelectionSurveyResult)((StepResult)resultObject).getResult();
 
+        Map<String, String> resultMap = new HashMap<>();
+
+        for (int i=0; i<yadlSpotResult.getSelectedIdentifiers().length; i++) {
+            resultMap.put(yadlSpotResult.getSelectedIdentifiers()[i], "selected");
+        }
+
+        for (int i=0; i<yadlSpotResult.getNotSelectedIdentifiers().length; i++) {
+            resultMap.put(yadlSpotResult.getNotSelectedIdentifiers()[i], "notSelected");
+        }
+
+        for (int i=0; i<yadlSpotResult.getExcludedIdentifiers().length; i++) {
+            resultMap.put(yadlSpotResult.getExcludedIdentifiers()[i], "excluded");
+        }
+
         YADLSpotRaw yadlSpot = new YADLSpotRaw(
                 UUID.randomUUID(),
                 taskIdentifier,
@@ -43,7 +61,8 @@ public class YADLSpotRawTransformer implements RSRPFrontEnd {
                 (Map<String, Object>)schemaID,
                 yadlSpotResult.getSelectedIdentifiers(),
                 yadlSpotResult.getNotSelectedIdentifiers(),
-                yadlSpotResult.getExcludedIdentifiers()
+                yadlSpotResult.getExcludedIdentifiers(),
+                resultMap
         );
 
         yadlSpot.setStartDate(((StepResult)resultObject).getStartDate());

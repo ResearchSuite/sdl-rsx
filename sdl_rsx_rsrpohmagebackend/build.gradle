@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.github.dcendents.android-maven'
 
-version = '0.0.1'
+version = '0.0.2'
 
 android {
     compileSdkVersion 25
@@ -35,7 +35,7 @@ dependencies {
 //    compile project(':sdl_rsx')
     compile 'edu.cornell.tech.foundry:sdl_rsx:0.0.4'
 //    compile project(':sdl_rsx_rsrpsupport')
-    compile 'edu.cornell.tech.foundry:sdl_rsx_rsrpsupport:0.0.1'
+    compile 'edu.cornell.tech.foundry:sdl_rsx_rsrpsupport:0.0.2'
     compile 'edu.cornell.tech.foundry:ohmageomhbackend:0.0.5'
 }
 
@@ -157,7 +157,7 @@ bintray {
         websiteUrl = siteUrl
         vcsUrl = gitUrl
         licenses = allLicenses
-        dryRun = false
+        dryRun = true
         publish = true
     }
 }

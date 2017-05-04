@@ -60,7 +60,7 @@ public class YADLSpotRawOMHDatapoint extends OMHDataPointBuilder {
         return new OMHSchema(
                 "yadl-spot-assessment",
                 "Cornell",
-                "2.0"
+                "2.1"
         );
     }
 
@@ -76,6 +76,7 @@ public class YADLSpotRawOMHDatapoint extends OMHDataPointBuilder {
         map.put("selected", this.yadlSpotRaw.getSelected());
         map.put("notSelected", this.yadlSpotRaw.getNotSelected());
         map.put("excluded", this.yadlSpotRaw.getExcluded());
+        map.put("results", this.yadlSpotRaw.getResultMap());
         return new JSONObject(map);
     }
 }

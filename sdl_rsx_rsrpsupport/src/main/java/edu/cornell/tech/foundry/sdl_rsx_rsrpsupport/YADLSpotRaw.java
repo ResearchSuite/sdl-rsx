@@ -18,6 +18,7 @@ public class YADLSpotRaw extends RSRPIntermediateResult {
     private String[] selected;
     private String[] notSelected;
     private String[] excluded;
+    private Map<String, String> resultMap;
 
     public YADLSpotRaw(
             UUID uuid,
@@ -26,7 +27,8 @@ public class YADLSpotRaw extends RSRPIntermediateResult {
             Map<String, Object> schemaID,
             String[] selected,
             String[] notSelected,
-            String[] excluded
+            String[] excluded,
+            Map<String, String> resultMap
     ) {
 
         super(TYPE, uuid, taskIdentifier, taskRunUUID);
@@ -34,6 +36,7 @@ public class YADLSpotRaw extends RSRPIntermediateResult {
         this.selected = selected;
         this.notSelected = notSelected;
         this.excluded = excluded;
+        this.resultMap = resultMap;
     }
 
     public Map<String, Object> getSchemaID() {
@@ -50,5 +53,9 @@ public class YADLSpotRaw extends RSRPIntermediateResult {
 
     public String[] getExcluded() {
         return excluded;
+    }
+
+    public Map<String, String> getResultMap() {
+        return resultMap;
     }
 }
