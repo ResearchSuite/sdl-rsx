@@ -1,6 +1,7 @@
 package edu.cornell.tech.foundry.sdl_rsx_rstbsupport;
 
 import android.graphics.Color;
+import android.support.annotation.Nullable;
 
 import com.google.gson.JsonObject;
 
@@ -52,6 +53,30 @@ public class YADLSpotStepGenerator extends RSTBBaseStepGenerator {
         if (!TextUtils.isEmpty(yadlSpotStepDescriptor.imageExtension)) {
             imageTitleStringBuilder.append(".");
             imageTitleStringBuilder.append(yadlSpotStepDescriptor.imageExtension);
+        }
+
+        return imageTitleStringBuilder.toString();
+    }
+
+    @Nullable
+    protected String generateOverlayImageTitle(YADLSpotStepDescriptor yadlSpotStepDescriptor) {
+
+        if (yadlSpotStepDescriptor.itemCellSelectedOverlayImageTitle == null ) {
+            return null;
+        }
+
+        StringBuilder imageTitleStringBuilder = new StringBuilder();
+
+        if (!TextUtils.isEmpty(yadlSpotStepDescriptor.itemCellSelectedOverlayImagePath)) {
+            imageTitleStringBuilder.append(yadlSpotStepDescriptor.itemCellSelectedOverlayImagePath);
+            imageTitleStringBuilder.append("/");
+        }
+
+        imageTitleStringBuilder.append(yadlSpotStepDescriptor.itemCellSelectedOverlayImageTitle);
+
+        if (!TextUtils.isEmpty(yadlSpotStepDescriptor.itemCellSelectedOverlayImageExtension)) {
+            imageTitleStringBuilder.append(".");
+            imageTitleStringBuilder.append(yadlSpotStepDescriptor.itemCellSelectedOverlayImageExtension);
         }
 
         return imageTitleStringBuilder.toString();
@@ -126,6 +151,8 @@ public class YADLSpotStepGenerator extends RSTBBaseStepGenerator {
         String[] excludedIdentifiers = this.excludedIdentifiers(yadlSpotStepDescriptor.items, yadlSpotStepDescriptor, helper);
 //        String[] excludedIdentifiers = {"BedToChair", "Dressing"};
         RSXMultipleImageSelectionSurveyOptions options = new RSXMultipleImageSelectionSurveyOptions(jsonObject, helper.getContext());
+
+        options.setItemCellSelectedOverlayImageTitle(this.generateOverlayImageTitle(yadlSpotStepDescriptor));
 
         Step step = new YADLSpotAssessmentStep(
                 yadlSpotStepDescriptor.identifier,

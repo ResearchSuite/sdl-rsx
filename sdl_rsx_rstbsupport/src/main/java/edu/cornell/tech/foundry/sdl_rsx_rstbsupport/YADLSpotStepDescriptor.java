@@ -17,6 +17,9 @@ public class YADLSpotStepDescriptor extends RSTBStepDescriptor {
     public List<YADLItemDescriptor> items;
     public String imagePath = "images/yadl";
     public String imageExtension = "jpeg";
+    public String itemCellSelectedOverlayImageTitle;
+    public String itemCellSelectedOverlayImagePath = "images";
+    public String itemCellSelectedOverlayImageExtension = "png";
 
     public YADLSpotStepDescriptor() {
 

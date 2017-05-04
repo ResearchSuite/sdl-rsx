@@ -16,6 +16,13 @@ abstract public class RSXMultipleImageSelectionSurveyStep extends QuestionStep {
         public boolean isVisible(T value);
     }
 
+
+
+    private RSXMultipleImageSelectionSurveyOptions options;
+//    private VisibilityFilter visibilityFilter;
+    @Nullable
+    private String[] excludedIdentifiers;
+
     /**
      * Returns a new question step that includes the specified identifier, title, image, and answer
      * format.
@@ -25,12 +32,6 @@ abstract public class RSXMultipleImageSelectionSurveyStep extends QuestionStep {
      * @param title      A localized string that represents the primary text of the question.
      * @param answerFormat The format in which the answer is expected.
      */
-
-    private RSXMultipleImageSelectionSurveyOptions options;
-//    private VisibilityFilter visibilityFilter;
-    @Nullable
-    private String[] excludedIdentifiers;
-
     public RSXMultipleImageSelectionSurveyStep(
             String identifier,
             String title,

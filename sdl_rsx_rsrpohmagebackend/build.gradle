@@ -1,18 +1,21 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.github.dcendents.android-maven'
 
-version = '0.0.4'
+version = '0.0.1'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion '25.0.0'
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
 
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 23
+        minSdkVersion 21
+        targetSdkVersion 25
         versionCode 1
-        versionName version
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
     }
     buildTypes {
         release {
@@ -22,19 +25,30 @@ android {
     }
 }
 
-Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:25.1.1'
+    testCompile 'junit:junit:4.12'
+//    compile project(':sdl_rsx')
+    compile 'edu.cornell.tech.foundry:sdl_rsx:0.0.4'
+//    compile project(':sdl_rsx_rsrpsupport')
+    compile 'edu.cornell.tech.foundry:sdl_rsx_rsrpsupport:0.0.1'
+    compile 'edu.cornell.tech.foundry:ohmageomhbackend:0.0.5'
+}
+
 
 ext {
     bintrayRepo = 'SDLRSX'
-    bintrayName = 'sdl_rsx'
+    bintrayName = 'sdl_rsx_rsrpohmagebackend'
 
     publishedGroupId = 'edu.cornell.tech.foundry'
     libraryName = bintrayName
     artifact = bintrayName
 
-
-    libraryDescription = 'The Small Data Lab ResearchStack Extensions package is the easiest way to include SDL visual surveys (YADL, MEDL, PAM) into a ResearchStack application.'
+    libraryDescription = 'This package adds support for RSRP'
 
     siteUrl = 'https://researchsuite.org'
     gitUrl = 'https://github.com/cornelltech/sdl-rsx.git'
@@ -42,6 +56,10 @@ ext {
     libraryVersion = version
 
     userOrgName = 'edu-cornell-tech-foundry'
+
+    //Dependent upon BINTRAY_* env set
+    //http://stackoverflow.com/questions/25385934/setting-environment-variables-via-launchd-conf-no-longer-works-in-os-x-yosemite
+
     bintrayUser = System.getenv('BINTRAY_USER')
     bintrayKey = System.getenv('BINTRAY_KEY')
     bintrayDevName = System.getenv('BINTRAY_DEVELOPER_NAME')
@@ -50,14 +68,6 @@ ext {
     licenseName = 'The Apache Software License, Version 2.0'
     licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
     allLicenses = ["Apache-2.0"]
-}
-
-dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.2.1'
-    compile 'com.android.support:percent:23.4.0'
-    compile 'org.researchstack:backbone:1.1.1'
 }
 
 group = publishedGroupId                               // Maven Group ID for the artifact
@@ -138,9 +148,6 @@ bintray {
     user = bintrayUser
     key = bintrayKey
 
-//    println user
-//    println key
-
     configurations = ['archives']
     pkg {
         repo = bintrayRepo
@@ -150,7 +157,7 @@ bintray {
         websiteUrl = siteUrl
         vcsUrl = gitUrl
         licenses = allLicenses
-        dryRun = true
+        dryRun = false
         publish = true
     }
 }
