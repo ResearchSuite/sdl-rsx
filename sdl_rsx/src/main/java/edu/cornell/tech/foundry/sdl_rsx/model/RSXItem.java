@@ -10,6 +10,10 @@ import org.json.JSONObject;
 abstract public class RSXItem {
 
     private String identifier;
+    public RSXItem(String identifier) {
+        this.identifier = identifier;
+    }
+
     public RSXItem(JSONObject json, Context context) {
         try {
             this.identifier = json.getString("identifier");

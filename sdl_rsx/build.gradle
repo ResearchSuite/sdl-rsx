@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
-version = '0.0.3-SNAPSHOT'
+version = '0.0.4'
 
 android {
     compileSdkVersion 23
@@ -27,16 +27,16 @@ properties.load(project.rootProject.file('local.properties').newDataInputStream(
 
 ext {
     bintrayRepo = 'SDLRSX'
-    bintrayName = 'SDLRSX'
+    bintrayName = 'sdl_rsx'
 
     publishedGroupId = 'edu.cornell.tech.foundry'
-    libraryName = 'sdl_rsx'
-    artifact = 'sdl_rsx'
+    libraryName = bintrayName
+    artifact = bintrayName
 
 
     libraryDescription = 'The Small Data Lab ResearchStack Extensions package is the easiest way to include SDL visual surveys (YADL, MEDL, PAM) into a ResearchStack application.'
 
-    siteUrl = 'https://cornelltech.io'
+    siteUrl = 'https://researchsuite.org'
     gitUrl = 'https://github.com/cornelltech/sdl-rsx.git'
 
     libraryVersion = version
@@ -57,7 +57,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.2.1'
     compile 'com.android.support:percent:23.4.0'
-    compile 'org.researchstack:backbone:1.1.1-SNAPSHOT'
+    compile 'org.researchstack:backbone:1.1.1'
 }
 
 group = publishedGroupId                               // Maven Group ID for the artifact
@@ -150,6 +150,7 @@ bintray {
         websiteUrl = siteUrl
         vcsUrl = gitUrl
         licenses = allLicenses
+        dryRun = true
         publish = true
     }
 }

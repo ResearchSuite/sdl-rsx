@@ -1,5 +1,7 @@
 package edu.cornell.tech.foundry.sdl_rsx.step;
 
+import android.support.annotation.Nullable;
+
 import org.researchstack.backbone.answerformat.AnswerFormat;
 import org.researchstack.backbone.step.QuestionStep;
 
@@ -14,6 +16,13 @@ abstract public class RSXMultipleImageSelectionSurveyStep extends QuestionStep {
         public boolean isVisible(T value);
     }
 
+
+
+    private RSXMultipleImageSelectionSurveyOptions options;
+//    private VisibilityFilter visibilityFilter;
+    @Nullable
+    private String[] excludedIdentifiers;
+
     /**
      * Returns a new question step that includes the specified identifier, title, image, and answer
      * format.
@@ -23,10 +32,6 @@ abstract public class RSXMultipleImageSelectionSurveyStep extends QuestionStep {
      * @param title      A localized string that represents the primary text of the question.
      * @param answerFormat The format in which the answer is expected.
      */
-
-    private RSXMultipleImageSelectionSurveyOptions options;
-    private VisibilityFilter visibilityFilter;
-
     public RSXMultipleImageSelectionSurveyStep(
             String identifier,
             String title,
@@ -48,10 +53,42 @@ abstract public class RSXMultipleImageSelectionSurveyStep extends QuestionStep {
     {
         super(identifier, title, answerFormat);
         this.options = options;
-        this.visibilityFilter = visibilityFilter;
+//        this.visibilityFilter = visibilityFilter;
+    }
+
+    public RSXMultipleImageSelectionSurveyStep(
+            String identifier,
+            String title,
+            AnswerFormat answerFormat,
+            RSXMultipleImageSelectionSurveyOptions options,
+            final String[] excludedIdentifiers
+    )
+    {
+        super(identifier, title, answerFormat);
+        this.options = options;
+        this.excludedIdentifiers = excludedIdentifiers;
+        //create visibility filter that leaves out excluded identitifiers
+//        this.visibilityFilter = new VisibilityFilter() {
+//            @Override
+//            public boolean isVisible(Object value) {
+//
+//                for (int i=0; i<excludedIdentifiers.length; i++) {
+//                    if (excludedIdentifiers[i].equals(value)) {
+//                        return false;
+//                    }
+//                }
+//
+//                return true;
+//            }
+//        };
     }
 
     public RSXMultipleImageSelectionSurveyOptions getOptions() {
         return this.options;
+    }
+
+    @Nullable
+    public String[] getExcludedIdentifiers() {
+        return excludedIdentifiers;
     }
 }

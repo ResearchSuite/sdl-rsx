@@ -33,11 +33,17 @@ import org.researchstack.backbone.utils.LogExt;
 import org.researchstack.backbone.utils.ResUtils;
 import org.researchstack.backbone.utils.TextUtils;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 
+import edu.cornell.tech.foundry.sdl_rsx.answerformat.RSXImageChoiceAnswerFormat;
+import edu.cornell.tech.foundry.sdl_rsx.choice.RSXImageChoice;
 import edu.cornell.tech.foundry.sdl_rsx.model.RSXMultipleImageSelectionSurveyOptions;
+import edu.cornell.tech.foundry.sdl_rsx.model.RSXMultipleImageSelectionSurveyResult;
 import edu.cornell.tech.foundry.sdl_rsx.step.RSXMultipleImageSelectionSurveyStep;
 import edu.cornell.tech.foundry.sdl_rsx.R;
 
@@ -317,25 +323,49 @@ abstract public class RSXMultipleImageSelectionSurveyLayout extends FrameLayout 
         return getResources().getString(stringResId);
     }
 
+    //TODO: Add Excluded and not selected items to results
     public StepResult getStepResult(boolean skipped)
     {
-        if(skipped)
-        {
+        if(skipped) {
             this.collectionAdapter.clearCurrentSelected();
-            ArrayList<Object> selectedValues = new ArrayList<>();
-            for(Object object : this.collectionAdapter.getCurrentSelected().toArray()){
-                selectedValues.add(this.collectionAdapter.getValueForChoice( (Choice)object ));
-            }
-            stepResult.setResult(selectedValues.toArray());
         }
-        else
-        {
-            ArrayList<Object> selectedValues = new ArrayList<>();
-            for(Object object : this.collectionAdapter.getCurrentSelected().toArray()){
-                selectedValues.add(this.collectionAdapter.getValueForChoice( (Choice)object ));
-            }
-            stepResult.setResult(selectedValues.toArray());
+
+        ArrayList<String> selectedIdentifiers = new ArrayList<>();
+        for(Object choiceObject : this.collectionAdapter.getCurrentSelected()){
+            Choice choice = (Choice)choiceObject;
+            selectedIdentifiers.add((String)choice.getValue());
         }
+
+        RSXMultipleImageSelectionSurveyStep step = (RSXMultipleImageSelectionSurveyStep)this.getStep();
+        List<String> excludedIdentifiers = Arrays.asList(step.getExcludedIdentifiers());
+        ArrayList<String> notSelectedIdentifiers = new ArrayList<>();
+        RSXImageChoiceAnswerFormat answerFormat = (RSXImageChoiceAnswerFormat)step.getAnswerFormat();
+        for (RSXImageChoice imageChoice : answerFormat.getImageChoices()) {
+            String identifier = (String)imageChoice.getValue();
+            if (!selectedIdentifiers.contains(identifier) &&
+                    !excludedIdentifiers.contains(identifier)) {
+                notSelectedIdentifiers.add(identifier);
+            }
+        }
+
+        String[] selectedIdentifierArray = new String[selectedIdentifiers.size()];
+        selectedIdentifierArray = selectedIdentifiers.toArray(selectedIdentifierArray);
+        String[] excludedIdentifierArray = this.step.getExcludedIdentifiers();
+        String[] notSelectedIdentifierArray = new String[notSelectedIdentifiers.size()];
+        notSelectedIdentifierArray = notSelectedIdentifiers.toArray(notSelectedIdentifierArray);
+
+        RSXMultipleImageSelectionSurveyResult result = new RSXMultipleImageSelectionSurveyResult(
+                step.getIdentifier(),
+                selectedIdentifierArray,
+                notSelectedIdentifierArray,
+                excludedIdentifierArray
+        );
+
+        result.setStartDate(stepResult.getStartDate());
+        result.setEndDate(stepResult.getEndDate());
+
+        stepResult.setResult(result);
+
         return stepResult;
     }
 

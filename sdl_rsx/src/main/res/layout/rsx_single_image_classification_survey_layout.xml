@@ -28,17 +28,18 @@
             android:layout_height="0dp"
             android:layout_weight="1">
 
-            <TextView
-                xmlns:android="http://schemas.android.com/apk/res/android"
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/item_description_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Activity Description"
-                android:gravity="center"
-                android:textSize="30sp"
-                android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentRight="true" />
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:background="@color/rsb_tab_text_selected"
+                android:gravity="center"
+                android:text="Activity Description"
+                android:textSize="30sp"
+                android:textColor="@android:color/white" />
 
             <TextView
                 xmlns:android="http://schemas.android.com/apk/res/android"
@@ -50,7 +51,8 @@
                 android:textSize="24sp"
                 android:layout_below="@+id/item_description_text_view"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentRight="true" />
+                android:layout_alignParentRight="true"
+                android:textColor="@android:color/black"/>
 
             <LinearLayout
                 xmlns:android="http://schemas.android.com/apk/res/android"

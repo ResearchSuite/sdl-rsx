@@ -31,4 +31,14 @@ public class YADLSpotAssessmentStep extends RSXMultipleImageSelectionSurveyStep 
     {
         super(identifier, title, answerFormat, options);
     }
+
+    public YADLSpotAssessmentStep(
+            String identifier,
+            String title,
+            AnswerFormat answerFormat,
+            RSXMultipleImageSelectionSurveyOptions options,
+            final String[] excludedIdentifiers
+    ) {
+        super(identifier, title, answerFormat, options, excludedIdentifiers);
+    }
 }
