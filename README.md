@@ -7,7 +7,13 @@ The [Small Data Lab](http://smalldata.io) ResearchStack Extensions package is th
 ### Download
 Add the following to your app/build.gradle:
 ```groovy
-compile 'edu.cornell.tech.foundry:sdl_rsx:0.0.3'
+compile 'edu.cornell.tech.foundry:sdl_rsx:0.0.4'
+//add RSTB Support
+compile 'edu.cornell.tech.foundry:sdl_rsx_rstbsupport:0.0.1'
+//add RSRP Support
+compile 'edu.cornell.tech.foundry:sdl_rsx_rsrpsupport:0.0.2'
+//add ohmage-omh Backend Support
+compile 'edu.cornell.tech.foundry:sdl_rsx_rsrpohmagebackend:0.0.2'
 ```
 
 You may also need to add the following source repos to your project's build.gradle:
