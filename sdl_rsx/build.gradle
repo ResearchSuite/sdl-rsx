@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
-version = '0.0.4'
+version = '0.0.7'
 
 android {
     compileSdkVersion 23
@@ -32,7 +32,6 @@ ext {
     publishedGroupId = 'edu.cornell.tech.foundry'
     libraryName = bintrayName
     artifact = bintrayName
-
 
     libraryDescription = 'The Small Data Lab ResearchStack Extensions package is the easiest way to include SDL visual surveys (YADL, MEDL, PAM) into a ResearchStack application.'
 
@@ -138,8 +137,8 @@ bintray {
     user = bintrayUser
     key = bintrayKey
 
-//    println user
-//    println key
+    println user
+    println key
 
     configurations = ['archives']
     pkg {
@@ -150,7 +149,7 @@ bintray {
         websiteUrl = siteUrl
         vcsUrl = gitUrl
         licenses = allLicenses
-        dryRun = true
+        dryRun = false
         publish = true
     }
 }

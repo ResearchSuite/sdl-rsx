@@ -337,7 +337,7 @@ abstract public class RSXMultipleImageSelectionSurveyLayout extends FrameLayout 
         }
 
         RSXMultipleImageSelectionSurveyStep step = (RSXMultipleImageSelectionSurveyStep)this.getStep();
-        List<String> excludedIdentifiers = Arrays.asList(step.getExcludedIdentifiers());
+        List<String> excludedIdentifiers = step.getExcludedIdentifiers() != null ? Arrays.asList(step.getExcludedIdentifiers()) : new ArrayList<String>();
         ArrayList<String> notSelectedIdentifiers = new ArrayList<>();
         RSXImageChoiceAnswerFormat answerFormat = (RSXImageChoiceAnswerFormat)step.getAnswerFormat();
         for (RSXImageChoice imageChoice : answerFormat.getImageChoices()) {

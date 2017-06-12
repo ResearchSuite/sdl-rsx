@@ -1,8 +1,8 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.jfrog.bintray'
+//apply plugin: 'com.jfrog.bintray'
 apply plugin: 'com.github.dcendents.android-maven'
 
-version = '0.0.2'
+version = '0.0.2-SNAPSHOT'
 
 android {
     compileSdkVersion 25
@@ -32,10 +32,10 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.1.1'
     testCompile 'junit:junit:4.12'
-//    compile project(':sdl_rsx')
-    compile 'edu.cornell.tech.foundry:sdl_rsx:0.0.4'
-//    compile project(':sdl_rsx_rsrpsupport')
-    compile 'edu.cornell.tech.foundry:sdl_rsx_rsrpsupport:0.0.2'
+    compile project(':sdl_rsx')
+//    compile 'edu.cornell.tech.foundry:sdl_rsx:0.0.4'
+    compile project(':sdl_rsx_rsrpsupport')
+//    compile 'edu.cornell.tech.foundry:sdl_rsx_rsrpsupport:0.0.2'
     compile 'edu.cornell.tech.foundry:ohmageomhbackend:0.0.5'
 }
 
@@ -144,20 +144,20 @@ artifacts {
     archives sourcesJar
 }
 
-bintray {
-    user = bintrayUser
-    key = bintrayKey
-
-    configurations = ['archives']
-    pkg {
-        repo = bintrayRepo
-        name = bintrayName
-        userOrg = userOrgName
-        desc = libraryDescription
-        websiteUrl = siteUrl
-        vcsUrl = gitUrl
-        licenses = allLicenses
-        dryRun = true
-        publish = true
-    }
-}
+//bintray {
+//    user = bintrayUser
+//    key = bintrayKey
+//
+//    configurations = ['archives']
+//    pkg {
+//        repo = bintrayRepo
+//        name = bintrayName
+//        userOrg = userOrgName
+//        desc = libraryDescription
+//        websiteUrl = siteUrl
+//        vcsUrl = gitUrl
+//        licenses = allLicenses
+//        dryRun = true
+//        publish = true
+//    }
+//}
