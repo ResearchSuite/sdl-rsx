@@ -8,6 +8,7 @@ import org.researchstack.backbone.model.Choice;
 import org.researchstack.backbone.result.StepResult;
 
 import edu.cornell.tech.foundry.sdl_rsx.choice.RSXImageChoice;
+import edu.cornell.tech.foundry.sdl_rsx.model.RSXMultipleImageSelectionSurveyResult;
 import edu.cornell.tech.foundry.sdl_rsx.step.RSXMultipleImageSelectionSurveyStep;
 
 /**
@@ -17,7 +18,7 @@ import edu.cornell.tech.foundry.sdl_rsx.step.RSXMultipleImageSelectionSurveyStep
 public class PAMMultipleAdaptor <T> extends RSXMultipleImageSelectionSurveyAdapter {
     public PAMMultipleAdaptor(
             RSXMultipleImageSelectionSurveyStep step,
-            StepResult<T[]> result) {
+            StepResult<RSXMultipleImageSelectionSurveyResult> result) {
         super(step, result);
     }
 
@@ -41,19 +42,19 @@ public class PAMMultipleAdaptor <T> extends RSXMultipleImageSelectionSurveyAdapt
         return null;
     }
 
-    @Nullable
-    public T getValueForChoice(Choice choice) {
-
-        RSXImageChoice imageChoice = (RSXImageChoice)choice;
-
-        try {
-            JSONObject json = new JSONObject((String)imageChoice.getValue());
-            json.put("image", imageChoice.getNormalStateImage());
-            return (T)json.toString();
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return (T)imageChoice.getValue();
-        }
-
-    }
+//    @Nullable
+//    public T getValueForChoice(Choice choice) {
+//
+//        RSXImageChoice imageChoice = (RSXImageChoice)choice;
+//
+//        try {
+//            JSONObject json = new JSONObject((String)imageChoice.getValue());
+//            json.put("image", imageChoice.getNormalStateImage());
+//            return (T)json.toString();
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//            return (T)imageChoice.getValue();
+//        }
+//
+//    }
 }

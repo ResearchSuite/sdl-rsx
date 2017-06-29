@@ -217,6 +217,7 @@ abstract public class RSXMultipleImageSelectionSurveyLayout extends FrameLayout 
             }
             catch (Exception e) {
                 e.printStackTrace();
+
             }
 
             if (options.getItemCollectionViewBackgroundColor() != 0) {
@@ -350,7 +351,8 @@ abstract public class RSXMultipleImageSelectionSurveyLayout extends FrameLayout 
 
         String[] selectedIdentifierArray = new String[selectedIdentifiers.size()];
         selectedIdentifierArray = selectedIdentifiers.toArray(selectedIdentifierArray);
-        String[] excludedIdentifierArray = this.step.getExcludedIdentifiers();
+        String[] excludedIdentifierArray = new String[selectedIdentifiers.size()];
+        excludedIdentifierArray = excludedIdentifiers.toArray(excludedIdentifierArray);
         String[] notSelectedIdentifierArray = new String[notSelectedIdentifiers.size()];
         notSelectedIdentifierArray = notSelectedIdentifiers.toArray(notSelectedIdentifierArray);
 

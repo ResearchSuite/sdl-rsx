@@ -157,11 +157,6 @@ public class CTFTextVSRAssessmentAdaptor<T> extends RSXSurveyAdaptor {
         return null;
     }
 
-    @Override
-    public Object getValueForChoice(Choice choice) {
-        return null;
-    }
-
     public void clearCurrentSelected() {
         this.currentSelected.clear();
     }

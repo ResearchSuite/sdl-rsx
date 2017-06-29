@@ -37,6 +37,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import edu.cornell.tech.foundry.sdl_rsx.model.RSXMultipleImageSelectionSurveyOptions;
+import edu.cornell.tech.foundry.sdl_rsx.model.RSXMultipleImageSelectionSurveyResult;
 import edu.cornell.tech.foundry.sdl_rsx.step.CTFTextVSRAssessmentStep;
 import edu.cornell.tech.foundry.sdl_rsx.step.PAMMultipleSelectionStep;
 import edu.cornell.tech.foundry.sdl_rsx.task.MEDLFullAssessmentTask;
@@ -364,10 +365,11 @@ public class MainActivity extends PinCodeActivity {
         for(String id : result.getResults().keySet())
         {
             StepResult stepResult = result.getStepResult(id);
-            if (stepResult != null && stepResult.getResults() != null && stepResult.getResults().get("answer") != null) {
-                Object[] answerItems = (Object[]) stepResult.getResults().get("answer");
+            if (stepResult != null && stepResult.getResult() != null) {
+                RSXMultipleImageSelectionSurveyResult medlResult = (RSXMultipleImageSelectionSurveyResult)stepResult.getResult();
+                String[] answerItems = medlResult.getSelectedIdentifiers();
                 for(int i=0; i<answerItems.length; i++) {
-                    items.add((String)answerItems[i]);
+                    items.add(answerItems[i]);
                 }
             }
         }

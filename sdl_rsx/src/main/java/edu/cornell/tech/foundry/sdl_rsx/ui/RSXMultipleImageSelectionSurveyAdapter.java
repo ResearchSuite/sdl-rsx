@@ -30,13 +30,14 @@ import java.util.Set;
 
 import edu.cornell.tech.foundry.sdl_rsx.answerformat.RSXImageChoiceAnswerFormat;
 import edu.cornell.tech.foundry.sdl_rsx.choice.RSXImageChoice;
+import edu.cornell.tech.foundry.sdl_rsx.model.RSXMultipleImageSelectionSurveyResult;
 import edu.cornell.tech.foundry.sdl_rsx.step.RSXMultipleImageSelectionSurveyStep;
 import edu.cornell.tech.foundry.sdl_rsx.R;
 
 /**
  * Created by jk on 6/15/16.
  */
-public class RSXMultipleImageSelectionSurveyAdapter <T> extends RSXSurveyAdaptor {
+public class RSXMultipleImageSelectionSurveyAdapter extends RSXSurveyAdaptor {
 
     private Set<Choice> currentSelected;
     private RSXImageChoice[] imageChoices;
@@ -48,7 +49,7 @@ public class RSXMultipleImageSelectionSurveyAdapter <T> extends RSXSurveyAdaptor
 
     public RSXMultipleImageSelectionSurveyAdapter(
             RSXMultipleImageSelectionSurveyStep step,
-            StepResult<T[]> result) {
+            StepResult<RSXMultipleImageSelectionSurveyResult> result) {
         super();
         this.step = step;
 
@@ -80,11 +81,13 @@ public class RSXMultipleImageSelectionSurveyAdapter <T> extends RSXSurveyAdaptor
         // Restore results
         currentSelected = new HashSet<>();
 
-        T[] resultArray = result.getResult();
-        if(resultArray != null && resultArray.length > 0)
-        {
-            for(int i=0; i<resultArray.length; i++) {
-                currentSelected.add(this.getChoiceForValue(resultArray[i], this.imageChoices));
+        RSXMultipleImageSelectionSurveyResult surveyResult = result.getResult();
+        if(surveyResult != null) {
+            String[] selectedIdentifiers = surveyResult.getSelectedIdentifiers();
+            assert(selectedIdentifiers != null);
+
+            for(int i=0; i<selectedIdentifiers.length; i++) {
+                currentSelected.add(this.getChoiceForValue(selectedIdentifiers[i], this.imageChoices));
             }
         }
     }
@@ -109,7 +112,7 @@ public class RSXMultipleImageSelectionSurveyAdapter <T> extends RSXSurveyAdaptor
         return position;
     }
 
-    protected View configureCellForImageChoice(View missCell, RSXImageChoice<T> imageChoice, ViewGroup parent) {
+    protected View configureCellForImageChoice(View missCell, RSXImageChoice<String> imageChoice, ViewGroup parent) {
 
         ImageView itemImageView = (ImageView) missCell.findViewById(R.id.item_image_view);
         ImageView checkImageView = (ImageView) missCell.findViewById(R.id.check_image_view);

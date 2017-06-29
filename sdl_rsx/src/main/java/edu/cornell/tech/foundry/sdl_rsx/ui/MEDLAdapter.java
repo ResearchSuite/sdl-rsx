@@ -9,6 +9,7 @@ import org.researchstack.backbone.result.StepResult;
 import org.researchstack.backbone.utils.TextUtils;
 
 import edu.cornell.tech.foundry.sdl_rsx.choice.RSXImageChoice;
+import edu.cornell.tech.foundry.sdl_rsx.model.RSXMultipleImageSelectionSurveyResult;
 import edu.cornell.tech.foundry.sdl_rsx.step.RSXMultipleImageSelectionSurveyStep;
 import edu.cornell.tech.foundry.sdl_rsx.R;
 
@@ -19,7 +20,7 @@ public class MEDLAdapter <T> extends RSXMultipleImageSelectionSurveyAdapter {
 
     public MEDLAdapter(
             RSXMultipleImageSelectionSurveyStep step,
-            StepResult<T[]> result) {
+            StepResult<RSXMultipleImageSelectionSurveyResult> result) {
         super(step, result);
 
     }

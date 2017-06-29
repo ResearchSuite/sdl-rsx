@@ -26,7 +26,7 @@ public abstract class RSXSurveyAdaptor <T> extends BaseAdapter {
         return null;
     }
 
-    public T getValueForChoice(Choice choice) {
-        return (T)choice.getValue();
-    }
+//    public T getValueForChoice(Choice choice) {
+//        return (T)choice.getValue();
+//    }
 }

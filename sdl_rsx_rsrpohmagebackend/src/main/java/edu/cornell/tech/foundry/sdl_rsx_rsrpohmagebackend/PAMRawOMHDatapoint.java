@@ -50,7 +50,7 @@ public class PAMRawOMHDatapoint extends OMHDataPointBuilder {
 
         return new OMHSchema(
                 "photographic-affect-meter-scores",
-                "Cornell",
+                "cornell",
                 "1.0"
         );
     }
