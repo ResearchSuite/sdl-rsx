@@ -1,11 +1,9 @@
 package edu.cornell.tech.foundry.sdl_rsx_rsrpsupport;
 
-import org.json.JSONObject;
+import org.researchsuite.rsrp.RSRPIntermediateResult;
 
 import java.util.Map;
 import java.util.UUID;
-
-import edu.cornell.tech.foundry.researchsuiteresultprocessor.RSRPIntermediateResult;
 
 /**
  * Created by jameskizer on 4/19/17.

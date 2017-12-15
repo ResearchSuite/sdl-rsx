@@ -2,10 +2,9 @@ package edu.cornell.tech.foundry.sdl_rsx_rstbsupport;
 
 import android.support.annotation.Nullable;
 
+import org.researchsuite.rstb.DefaultStepGenerators.descriptors.RSTBStepDescriptor;
+
 import java.util.List;
-
-import edu.cornell.tech.foundry.researchsuitetaskbuilder.DefaultStepGenerators.descriptors.RSTBStepDescriptor;
-
 
 /**
  * Created by jameskizer on 4/14/17.

@@ -4,14 +4,14 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 
 import org.json.JSONObject;
+import org.researchsuite.omhclient.OMHAcquisitionProvenance;
+import org.researchsuite.omhclient.OMHDataPointBuilder;
+import org.researchsuite.omhclient.OMHSchema;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import edu.cornell.tech.foundry.omhclient.OMHAcquisitionProvenance;
-import edu.cornell.tech.foundry.omhclient.OMHDataPointBuilder;
-import edu.cornell.tech.foundry.omhclient.OMHSchema;
 import edu.cornell.tech.foundry.sdl_rsx_rsrpsupport.YADLSpotRaw;
 
 /**

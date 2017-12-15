@@ -8,13 +8,13 @@ import org.researchstack.backbone.answerformat.AnswerFormat;
 import org.researchstack.backbone.answerformat.ChoiceAnswerFormat;
 import org.researchstack.backbone.step.Step;
 import org.researchstack.backbone.utils.TextUtils;
+import org.researchsuite.rstb.DefaultStepGenerators.RSTBBaseStepGenerator;
+import org.researchsuite.rstb.RSTBTaskBuilderHelper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import edu.cornell.tech.foundry.researchsuitetaskbuilder.DefaultStepGenerators.RSTBBaseStepGenerator;
-import edu.cornell.tech.foundry.researchsuitetaskbuilder.RSTBTaskBuilderHelper;
 import edu.cornell.tech.foundry.sdl_rsx.choice.RSXTextChoiceWithColor;
 import edu.cornell.tech.foundry.sdl_rsx.step.RSXSingleImageClassificationSurveyStep;
 

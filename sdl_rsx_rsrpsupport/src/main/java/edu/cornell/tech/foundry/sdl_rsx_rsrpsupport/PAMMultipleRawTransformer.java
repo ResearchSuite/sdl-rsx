@@ -3,14 +3,14 @@ package edu.cornell.tech.foundry.sdl_rsx_rsrpsupport;
 import android.support.annotation.Nullable;
 
 import org.researchstack.backbone.result.StepResult;
+import org.researchsuite.rsrp.RSRPFrontEndServiceProvider.spi.RSRPFrontEnd;
+import org.researchsuite.rsrp.RSRPIntermediateResult;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.UUID;
 
-import edu.cornell.tech.foundry.researchsuiteresultprocessor.RSRPFrontEndServiceProvider.spi.RSRPFrontEnd;
-import edu.cornell.tech.foundry.researchsuiteresultprocessor.RSRPIntermediateResult;
 import edu.cornell.tech.foundry.sdl_rsx.model.RSXMultipleImageSelectionSurveyResult;
 
 /**

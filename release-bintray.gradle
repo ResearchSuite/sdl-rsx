@@ -1,0 +1,36 @@
+/**
+ * Bintray release configuration
+ * */
+ext {
+  bintrayRepo = 'SDLRSX'
+  bintrayName = POM_BINTRAY_NAME
+    userOrgName = 'edu-cornell-tech-foundry'
+
+  publishedGroupId = 'edu.cornell.tech.foundry'
+  libraryName = 'Small Data Lab ResearchStack Extensions'
+  artifact = POM_ARTIFACT_ID
+  packagingType = POM_PACKAGING
+
+  libraryDescription = POM_DESCRIPTION
+
+  siteUrl = 'https://researchsuite.org'
+  gitUrl = 'https://github.com/researchsuite/sdl-rsx.git'
+
+  libraryVersion = POM_VERSION
+
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+  developerId = properties.getProperty("developer.id")
+  developerName = properties.getProperty("developer.name")
+  developerEmail = properties.getProperty("developer.email")
+
+  licenseName = 'Apache-2.0'
+  licenseUrl = 'https://github.com/researchsuitesdl-rsx/LICENSE'
+  allLicenses = ["Apache-2.0"]
+}
+
+// Set up the Android Maven publication.
+apply from: rootProject.file('jcenter/maven-install.gradle')
+
+// Publish on Bintray.
+apply from: rootProject.file('jcenter/bintray.gradle')

@@ -1,16 +1,11 @@
 apply plugin: 'com.android.library'
-//apply plugin: 'com.jfrog.bintray'
-apply plugin: 'com.github.dcendents.android-maven'
-
-version = '0.0.3'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion 26
 
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
 
@@ -26,137 +21,15 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    compile 'com.android.support:appcompat-v7:25.1.1'
-    testCompile 'junit:junit:4.12'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:percent:26.1.0'
 
-    compile project(':sdl_rsx')
-//    compile 'edu.cornell.tech.foundry:sdl_rsx:0.0.4'
-    compile 'edu.cornell.tech.foundry:researchsuiteresultsprocessor:0.0.4'
+    implementation 'org.researchstack:backbone:1.1.2'
+    implementation project(':sdl_rsx')
+    implementation 'org.researchsuite:rsrp:0.1.0'
 }
 
-
-ext {
-    bintrayRepo = 'SDLRSX'
-    bintrayName = 'sdl_rsx_rsrpsupport'
-
-    publishedGroupId = 'edu.cornell.tech.foundry'
-    libraryName = bintrayName
-    artifact = bintrayName
-
-    libraryDescription = 'This package adds support for RSRP'
-
-    siteUrl = 'https://researchsuite.org'
-    gitUrl = 'https://github.com/cornelltech/sdl-rsx.git'
-
-    libraryVersion = version
-
-    userOrgName = 'edu-cornell-tech-foundry'
-
-    //Dependent upon BINTRAY_* env set
-    //http://stackoverflow.com/questions/25385934/setting-environment-variables-via-launchd-conf-no-longer-works-in-os-x-yosemite
-
-    bintrayUser = System.getenv('BINTRAY_USER')
-    bintrayKey = System.getenv('BINTRAY_KEY')
-    bintrayDevName = System.getenv('BINTRAY_DEVELOPER_NAME')
-    bintrayDevEmail = System.getenv('BINTRAY_DEVELOPER_EMAIL')
-
-    licenseName = 'The Apache Software License, Version 2.0'
-    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-    allLicenses = ["Apache-2.0"]
-}
-
-group = publishedGroupId                               // Maven Group ID for the artifact
-
-install {
-    repositories.mavenInstaller {
-        // This generates POM.xml with proper parameters
-        pom {
-            project {
-                packaging 'aar'
-                groupId publishedGroupId
-                artifactId artifact
-
-                // Add your description here
-                name libraryName
-                description libraryDescription
-                url siteUrl
-
-                // Set your license
-                licenses {
-                    license {
-                        name licenseName
-                        url licenseUrl
-                    }
-                }
-                developers {
-                    developer {
-                        id bintrayUser
-                        name bintrayDevName
-                        email bintrayDevEmail
-                    }
-                }
-                scm {
-                    connection gitUrl
-                    developerConnection gitUrl
-                    url siteUrl
-                }
-            }
-        }
-    }
-}
-
-if (project.hasProperty("android")) { // Android libraries
-    task sourcesJar(type: Jar) {
-        classifier = 'sources'
-        from android.sourceSets.main.java.srcDirs
-    }
-
-    task javadoc(type: Javadoc) {
-        failOnError false
-        source = android.sourceSets.main.java.srcDirs
-    }
-
-    afterEvaluate {
-        javadoc.classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-        javadoc.classpath += files(android.libraryVariants.collect { variant ->
-            variant.javaCompile.classpath.files
-        })
-    }
-} else { // Java libraries
-    task sourcesJar(type: Jar, dependsOn: classes) {
-        classifier = 'sources'
-        from sourceSets.main.allSource
-    }
-}
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
-
-artifacts {
-    archives javadocJar
-    archives sourcesJar
-}
-
-//bintray {
-//    user = bintrayUser
-//    key = bintrayKey
-//
-//    configurations = ['archives']
-//    pkg {
-//        repo = bintrayRepo
-//        name = bintrayName
-//        userOrg = userOrgName
-//        desc = libraryDescription
-//        websiteUrl = siteUrl
-//        vcsUrl = gitUrl
-//        licenses = allLicenses
-//        dryRun = false
-//        publish = true
-//    }
-//}
+apply from: rootProject.file('release-bintray.gradle')

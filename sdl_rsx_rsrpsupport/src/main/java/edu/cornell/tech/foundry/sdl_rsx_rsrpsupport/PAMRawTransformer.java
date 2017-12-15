@@ -5,6 +5,8 @@ import android.support.annotation.Nullable;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.researchstack.backbone.result.StepResult;
+import org.researchsuite.rsrp.RSRPFrontEndServiceProvider.spi.RSRPFrontEnd;
+import org.researchsuite.rsrp.RSRPIntermediateResult;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -12,8 +14,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.UUID;
 
-import edu.cornell.tech.foundry.researchsuiteresultprocessor.RSRPFrontEndServiceProvider.spi.RSRPFrontEnd;
-import edu.cornell.tech.foundry.researchsuiteresultprocessor.RSRPIntermediateResult;
 import edu.cornell.tech.foundry.sdl_rsx.model.RSXMultipleImageSelectionSurveyResult;
 
 /**

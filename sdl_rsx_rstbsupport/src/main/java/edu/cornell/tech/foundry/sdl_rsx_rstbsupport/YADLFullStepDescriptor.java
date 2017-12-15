@@ -1,8 +1,8 @@
 package edu.cornell.tech.foundry.sdl_rsx_rstbsupport;
 
-import java.util.List;
+import org.researchsuite.rstb.DefaultStepGenerators.descriptors.RSTBElementDescriptor;
 
-import edu.cornell.tech.foundry.researchsuitetaskbuilder.DefaultStepGenerators.descriptors.RSTBElementDescriptor;
+import java.util.List;
 
 /**
  * Created by jameskizer on 4/13/17.

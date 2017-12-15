@@ -5,12 +5,12 @@ import android.util.Log;
 import com.google.gson.JsonObject;
 
 import org.researchstack.backbone.step.Step;
+import org.researchsuite.rstb.DefaultStepGenerators.RSTBBaseStepGenerator;
+import org.researchsuite.rstb.DefaultStepGenerators.descriptors.RSTBCustomStepDescriptor;
+import org.researchsuite.rstb.RSTBTaskBuilderHelper;
 
 import java.util.Arrays;
 
-import edu.cornell.tech.foundry.researchsuitetaskbuilder.DefaultStepGenerators.RSTBBaseStepGenerator;
-import edu.cornell.tech.foundry.researchsuitetaskbuilder.DefaultStepGenerators.descriptors.RSTBCustomStepDescriptor;
-import edu.cornell.tech.foundry.researchsuitetaskbuilder.RSTBTaskBuilderHelper;
 import edu.cornell.tech.foundry.sdl_rsx.step.PAMStep;
 
 /**

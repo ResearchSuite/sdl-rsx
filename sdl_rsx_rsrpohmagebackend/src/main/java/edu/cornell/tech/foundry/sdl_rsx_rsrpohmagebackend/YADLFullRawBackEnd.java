@@ -2,9 +2,10 @@ package edu.cornell.tech.foundry.sdl_rsx_rsrpohmagebackend;
 
 import android.content.Context;
 
-import edu.cornell.tech.foundry.ohmageomhbackend.ORBEIntermediateResultTransformer.spi.ORBEIntermediateResultTransformer;
-import edu.cornell.tech.foundry.omhclient.OMHDataPoint;
-import edu.cornell.tech.foundry.researchsuiteresultprocessor.RSRPIntermediateResult;
+import org.researchsuite.ohmageomhbackend.ORBEIntermediateResultTransformer.spi.ORBEIntermediateResultTransformer;
+import org.researchsuite.omhclient.OMHDataPoint;
+import org.researchsuite.rsrp.RSRPIntermediateResult;
+
 import edu.cornell.tech.foundry.sdl_rsx_rsrpsupport.YADLFullRaw;
 
 /**

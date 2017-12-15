@@ -1,11 +1,11 @@
 package edu.cornell.tech.foundry.sdl_rsx_rsrpsupport;
 
+import org.researchsuite.rsrp.RSRPIntermediateResult;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.UUID;
-
-import edu.cornell.tech.foundry.researchsuiteresultprocessor.RSRPIntermediateResult;
 
 /**
  * Created by jameskizer on 4/19/17.
